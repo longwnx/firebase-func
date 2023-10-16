@@ -16,6 +16,6 @@ app.use(express.urlencoded({extended: true}));
 
 // Sử dụng route mới
 app.use("/app-mobile/v1", appRoute);
-app.use("/catalogs", productRoutes);
+app.use("/catalog/v1", productRoutes);
 
 export default app;

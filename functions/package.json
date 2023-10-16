@@ -8,10 +8,22 @@
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "dev": "nodemon",
+    "test": "nodemon --config ./spec/nodemon.json"
   },
   "engines": {
     "node": "18"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "functions/src"
+    ],
+    "ext": "ts, html",
+    "ignore": [
+      "functions/src/public"
+    ],
+    "exec": "./node_modules/.bin/ts-node --files -r tsconfig-paths/register ./src"
   },
   "main": "lib/index.js",
   "dependencies": {
