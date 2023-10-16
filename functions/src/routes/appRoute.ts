@@ -46,7 +46,7 @@ router.get("/v1/get-app/:appKey", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/v1/setting", async (req: Request, res: Response) => {
+router.post("/setting", async (req: Request, res: Response) => {
   try {
     const settingData = req.body as SettingData;
 
@@ -67,7 +67,7 @@ router.post("/v1/setting", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/v1/setting/:appKey", async (req: Request, res: Response) => {
+router.get("/setting/:appKey", async (req: Request, res: Response) => {
   try {
     const appKey = req.params.appKey;
     const setting = await getSettingByAppKey(appKey);
@@ -84,7 +84,7 @@ router.get("/v1/setting/:appKey", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/v1/layout", async (req: Request, res: Response) => {
+router.post("/layout", async (req: Request, res: Response) => {
   try {
     const layoutData = req.body as LayoutData;
 
@@ -105,7 +105,7 @@ router.post("/v1/layout", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/v1/layout/:appKey", async (req: Request, res: Response) => {
+router.get("/:appKey/layout", async (req: Request, res: Response) => {
   try {
     const appKey = req.params.appKey;
     const layout = await getLayoutByAppKey(appKey);
@@ -125,7 +125,7 @@ router.get("/v1/layout/:appKey", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/v1/page", async (req: Request, res: Response) => {
+router.post("/page", async (req: Request, res: Response) => {
   try {
     const layoutData = req.body as PageLayoutData;
 
@@ -146,7 +146,7 @@ router.post("/v1/page", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/v1/pages/:appKey", async (req: Request, res: Response) => {
+router.get("/:appKey/pages", async (req: Request, res: Response) => {
   try {
     const appKey = req.params.appKey;
     const pages = await getPagesByAppKey(appKey);

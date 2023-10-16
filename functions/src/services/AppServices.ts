@@ -155,7 +155,12 @@ export async function getPagesByAppKey(appKey: string) {
     const pages = await collection?.find({appKey}).toArray();
 
     if (pages) {
-      return pages;
+      return pages.map((page) => {
+        return {
+          ...page,
+          id: page._id,
+        };
+      });
     } else {
       throw new Error("Setting not found");
     }
