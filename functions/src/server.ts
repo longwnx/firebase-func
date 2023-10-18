@@ -4,9 +4,15 @@ import "express-async-errors";
 
 import appRoute from "./routes/appRoute";
 import productRoutes from "./routes/productRoutes";
+import dotenv from "dotenv";
+
+// **** Setup DotEnv config **** //
+const result2 = dotenv.config();
+if (result2.error) {
+  throw result2.error;
+}
 
 // **** Variables **** //
-
 const app = express();
 // **** Setup **** //
 const port = 3000;

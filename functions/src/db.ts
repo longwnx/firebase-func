@@ -1,8 +1,12 @@
 /* eslint-disable require-jsdoc */
 import {Db, MongoClient, MongoClientOptions} from "mongodb";
+import dotenv from "dotenv";
 
-const url =
-  "mongodb+srv://d20_offical:Long2326@cluster0.5twts.mongodb.net/Ecom-Services";
+const result2 = dotenv.config();
+if (result2.error) {
+  throw result2.error;
+}
+const url = `${process.env.MONGODB_URL}`;
 const options: MongoClientOptions = {
   // useNewUrlParser: true,
   // useUnifiedTopology: true,
