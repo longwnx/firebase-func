@@ -4,6 +4,7 @@ import "express-async-errors";
 
 import appRoute from "./routes/appRoute";
 import productRoutes from "./routes/productRoutes";
+import reviewRoutes from "./routes/reviewRoutes";
 import dotenv from "dotenv";
 
 // **** Setup DotEnv config **** //
@@ -25,5 +26,6 @@ app.listen(port, () => {
 // Sử dụng route mới
 app.use("/app-mobile/v1", appRoute);
 app.use("/catalog/v1", productRoutes);
+app.use("/review/v1", reviewRoutes);
 
 export default app;

@@ -1,4 +1,5 @@
 import {WooCommerceProduct} from "../models/Product";
+import {ReviewProduct} from "../models/Review";
 
 export const convertProduct = (product: WooCommerceProduct) => {
   return {
@@ -94,4 +95,30 @@ export const convertListProduct = (products: WooCommerceProduct[]) => {
   return products?.map((product) => {
     return convertProduct(product);
   });
+};
+
+export const convertReviewProduct = (reviews: ReviewProduct[]) => {
+  return reviews.map((review) => {
+    return {
+      email: review.reviewer_email,
+      displayName: review.reviewer,
+      date: review.date_created,
+      rating: review.rating,
+      message: review.review,
+      id: review.id,
+      title: "",
+      images: [],
+      reply: [],
+    };
+  });
+};
+
+export const convertReviewSummary = (reviews: ReviewProduct[], id: number) => {
+  return {
+    id: id,
+    rating:
+      reviews.reduce((item, currentValue) => item + currentValue.rating, 0) /
+      reviews.length,
+    count: reviews.length,
+  };
 };
