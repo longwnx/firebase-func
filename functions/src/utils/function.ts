@@ -1,5 +1,6 @@
 import {WooCommerceProduct} from "../models/Product";
 import {ReviewProduct} from "../models/Review";
+import {WoocommerceUser} from "../models/User";
 
 export const convertProduct = (product: WooCommerceProduct) => {
   return {
@@ -120,5 +121,23 @@ export const convertReviewSummary = (reviews: ReviewProduct[], id: number) => {
       reviews.reduce((item, currentValue) => item + currentValue.rating, 0) /
       reviews.length,
     count: reviews.length,
+  };
+};
+
+export const convertCustomerUser = (user: WoocommerceUser) => {
+  return {
+    id: user.id,
+    company: "",
+    firstName: user.first_name,
+    lastName: user.last_name,
+    email: user.email,
+    phone: user.billing.phone,
+    storeCredit: "",
+    customerGroupId: "",
+    notes: "",
+    taxExemptCategory: "",
+    resetPassOnLogin: false,
+    acceptsMarketing: false,
+    storeCreditDisplayValue: "",
   };
 };

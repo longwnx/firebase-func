@@ -2,6 +2,7 @@
 import Database from "../db";
 import axios from "axios";
 import {customerData, userData} from "../models/User";
+import {convertCustomerUser} from "../utils/function";
 
 export async function registerCustomer(data: customerData) {
   try {
@@ -66,7 +67,7 @@ export async function customerLogin(phone: string) {
             },
           );
           if (data) {
-            return data;
+            return {woocommerceUser: convertCustomerUser(data)};
           } else {
             throw new Error("Người dùng không tồn tại");
           }
