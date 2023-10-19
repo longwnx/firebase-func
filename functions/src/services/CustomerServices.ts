@@ -1,13 +1,12 @@
 /* eslint-disable require-jsdoc */
 import Database from "../db";
 import axios from "axios";
-import {customerData} from "../models/User";
+import {customerData, userData} from "../models/User";
 
 export async function registerCustomer(data: customerData) {
   try {
     const db = Database.db;
     const collection = db?.collection("User");
-    console.log(" process.env.URL", data);
     if (collection) {
       const existingUser = await collection.findOne({
         phone: data.billing.phone,
@@ -18,48 +17,70 @@ export async function registerCustomer(data: customerData) {
       }
 
       try {
-        const {
-          request,
-          status,
-          data: resData,
-          headers,
-          statusText,
-        } = await axios.post(`${process.env.URL}/wp-json/wc/v3/customers`, {
-          params: {
-            consumer_key: process.env.CONSUMER_KEY,
-            consumer_secret: process.env.CONSUMER_SECRET,
-          },
-          headers: {},
-          data: {
-            ...data,
-            billing: {
-              ...data.billing,
-              email: data.email,
+        const {data: user} = await axios.post(
+          `${process.env.URL}/wp-json/wc/v3/customers`,
+          {...data},
+          {
+            params: {
+              consumer_key: process.env.CONSUMER_KEY,
+              consumer_secret: process.env.CONSUMER_SECRET,
             },
           },
-        });
-        console.log(" user", request, status, resData, headers, statusText);
-        // if (user) {
-        //   return await collection.insertOne({
-        //     woocommerceId: user.id,
-        //     phone: data.billing.phone,
-        //   });
-        // } else {
-        //   console.log("user", user);
-        //   throw Error("Không kết nối được đến cơ sở dữ liệu");
-        // }
-      } catch (error) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        console.log(":ss", error?.response);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        throw new Error(error?.response?.data?.message?.toString());
+        );
+        if (user) {
+          return await collection.insertOne({
+            woocommerceId: user.id,
+            phone: data.billing.phone,
+            username: user.username,
+          });
+        } else {
+          throw Error("Không kết nối được đến cơ sở dữ liệu");
+        }
+      } catch (error: any) {
+        throw error?.response?.data?.message?.toString();
       }
     } else {
       throw new Error("Không kết nối được đến cơ sở dữ liệu");
     }
-  } catch (error) {
-    throw new Error(error?.toString());
+  } catch (error: any) {
+    throw error?.toString();
+  }
+}
+
+export async function customerLogin(phone: string) {
+  try {
+    const db = Database.db;
+    const collection = db?.collection("User");
+    if (collection) {
+      const result = (await collection.findOne({phone})) as userData;
+      if (result) {
+        const id = result.woocommerceId;
+        try {
+          const {data} = await axios.get(
+            `${process.env.URL}/wp-json/wc/v3/customers/${id}`,
+            {
+              params: {
+                consumer_key: process.env.CONSUMER_KEY,
+                consumer_secret: process.env.CONSUMER_SECRET,
+              },
+            },
+          );
+          if (data) {
+            return data;
+          } else {
+            throw new Error("Người dùng không tồn tại");
+          }
+        } catch (error: any) {
+          throw error?.response?.data?.message?.toString();
+        }
+      }
+      {
+        throw new Error("Không kết nối được đến cơ sở dữ liệu");
+      }
+    } else {
+      throw new Error("Không kết nối được đến cơ sở dữ liệu");
+    }
+  } catch (error: any) {
+    throw error?.toString();
   }
 }

@@ -59,8 +59,10 @@ export interface customerData extends Document {
 }
 
 export interface userData extends Document {
+  id: string;
   woocommerceId: number;
   phone: string;
+  username: string;
 }
 
 const userSchema = new mongoose.Schema({
@@ -69,6 +71,10 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   phone: {
+    type: String,
+    required: true,
+  },
+  username: {
     type: String,
     required: true,
   },
