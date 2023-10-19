@@ -5,6 +5,7 @@ import "express-async-errors";
 import appRoute from "./routes/appRoute";
 import productRoutes from "./routes/productRoutes";
 import reviewRoutes from "./routes/reviewRoutes";
+import customerRoutes from "./routes/customerRoutes";
 import dotenv from "dotenv";
 
 // **** Setup DotEnv config **** //
@@ -27,5 +28,6 @@ app.listen(port, () => {
 app.use("/app-mobile/v1", appRoute);
 app.use("/catalog/v1", productRoutes);
 app.use("/review/v1", reviewRoutes);
+app.use("/woocommerce-user/v1", customerRoutes);
 
 export default app;

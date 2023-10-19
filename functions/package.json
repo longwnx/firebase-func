@@ -10,7 +10,8 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "dev": "nodemon ./src/server.ts",
-    "test": "nodemon --config ./spec/nodemon.json"
+    "test": "nodemon --config ./spec/nodemon.json",
+    "debug": "nodemon --inspect=0.0.0.0:9229 ./src/server.ts"
   },
   "engines": {
     "node": "18"
