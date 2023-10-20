@@ -30,6 +30,6 @@ app.use("/app-mobile/v1", appRoute);
 app.use("/catalog/v1", productRoutes);
 app.use("/review/v1", reviewRoutes);
 app.use("/woocommerce-user/v1", customerRoutes);
-app.use("/svc/order/v1", orderRoutes);
+app.use("/order/v1", orderRoutes);
 
 export default app;
