@@ -24,7 +24,7 @@ export const getListOrder = async (customerId: string) => {
             0,
           ),
           status: item.status,
-          totalIncTax: item.total_tax,
+          totalIncTax: item.total,
           dateCreated: item.date_created,
           dateModified: item.date_modified,
           defaultCurrencyCode: item.currency,
@@ -50,9 +50,7 @@ export const getDetailOrder = async (orderId: string) => {
     )) as { data: Order };
 
     if (data) {
-      return {
-        list: convertOrderDetail(data),
-      };
+      return convertOrderDetail(data);
     } else {
       throw new Error("Khong có data");
     }
