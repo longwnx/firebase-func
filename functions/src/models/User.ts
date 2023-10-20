@@ -48,6 +48,13 @@ export interface WoocommerceUser {
   };
 }
 
+export interface formRegister extends Document {
+  info: {
+    code: string;
+    value: string;
+  }[];
+}
+
 export interface customerData extends Document {
   email: string;
   first_name: string;

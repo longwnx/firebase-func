@@ -1,16 +1,46 @@
 /* eslint-disable require-jsdoc */
 import Database from "../db";
 import axios from "axios";
-import {customerData, userData} from "../models/User";
+import {formRegister, userData} from "../models/User";
 import {convertCustomerUser} from "../utils/function";
 
-export async function registerCustomer(data: customerData) {
+export async function registerCustomer(data: formRegister) {
   try {
     const db = Database.db;
     const collection = db?.collection("User");
     if (collection) {
+      const phone = data.info.find((item) => item.code === "phone-number");
       const existingUser = await collection.findOne({
-        phone: data.billing.phone,
+        phone: phone?.value,
+      });
+
+      const result = {
+        email: "",
+        first_name: "",
+        last_name: "",
+        username: "",
+        billing: {
+          phone: "",
+        },
+      };
+      data.info.forEach((item) => {
+        switch (item.code) {
+        case "email-address":
+          result.email = item.value;
+          break;
+        case "phone-number":
+          result.billing.phone = item.value;
+          break;
+        case "first-name":
+          result.first_name = item.value;
+          break;
+        case "last-name":
+          result.last_name = item.value;
+          break;
+        case "user-name":
+          result.username = item.value;
+          break;
+        }
       });
 
       if (existingUser) {
@@ -20,7 +50,7 @@ export async function registerCustomer(data: customerData) {
       try {
         const {data: user} = await axios.post(
           `${process.env.URL}/wp-json/wc/v3/customers`,
-          {...data},
+          result,
           {
             params: {
               consumer_key: process.env.CONSUMER_KEY,
@@ -31,7 +61,7 @@ export async function registerCustomer(data: customerData) {
         if (user) {
           return await collection.insertOne({
             woocommerceId: user.id,
-            phone: data.billing.phone,
+            phone: phone?.value,
             username: user.username,
           });
         } else {
