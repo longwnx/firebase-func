@@ -9,7 +9,7 @@ router.post("/register", async (req: Request, res: Response) => {
   try {
     const customer = req.body as formRegister;
     const createdApp = await registerCustomer(customer);
-    res.json({message: "Đăng kí thành công", data: createdApp});
+    res.json({message: "Đăng kí thành công", data: createdApp}).status(201);
   } catch (error) {
     res.status(500).json({
       error: error?.toString(),
