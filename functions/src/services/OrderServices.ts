@@ -1,9 +1,12 @@
 import axios from "axios";
 import {Order} from "../models/Order";
 import {convertOrderDetail} from "../utils/function";
+import {Request, Response} from "express";
+import HttpStatusCodes from "../constants/HttpStatusCodes";
 
-export const getListOrder = async (customerId: string) => {
+export const getListOrder = async (req: Request, res: Response) => {
   try {
+    const customerId = req.query.id as string;
     const {data} = (await axios.get(
       `${process.env.URL}/wp-json/wc/v3/orders`,
       {
@@ -15,8 +18,9 @@ export const getListOrder = async (customerId: string) => {
         },
       },
     )) as { data: Order[] };
-    return {
-      list: data.map((item) => {
+    res.status(HttpStatusCodes.OK).json({
+      message: "Success!",
+      data: data.map((item) => {
         return {
           id: item.id,
           itemsTotal: item.line_items.reduce(
@@ -31,14 +35,17 @@ export const getListOrder = async (customerId: string) => {
           customStatus: item.status,
         };
       }),
-    };
+    });
   } catch (error: any) {
-    throw error?.toString();
+    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: error?.toString(),
+    });
   }
 };
 
-export const getDetailOrder = async (orderId: string) => {
+export const getDetailOrder = async (req: Request, res: Response) => {
   try {
+    const orderId = req.params.id as string;
     const {data} = (await axios.get(
       `${process.env.URL}/wp-json/wc/v3/orders/${orderId}`,
       {
@@ -50,12 +57,16 @@ export const getDetailOrder = async (orderId: string) => {
     )) as { data: Order };
 
     if (data) {
-      return convertOrderDetail(data);
+      res
+        .status(HttpStatusCodes.OK)
+        .json({message: "Success!", data: convertOrderDetail(data)});
     } else {
-      throw new Error("Khong có data");
+      res.status(HttpStatusCodes.NOT_FOUND).json({message: "Khong có data"});
     }
   } catch (error: any) {
-    throw error?.response.data.message.toString();
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: error?.response.data.message.toString()});
   }
 };
 

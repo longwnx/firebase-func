@@ -1,7 +1,11 @@
 interface CartItem {
-  product_id: number;
-  variation_id: number | null;
+  productId: number;
+  variationId: number | null;
   quantity: number;
+}
+
+interface Cart {
   cartId: string;
   userId: string;
+  lineItems: CartItem[];
 }

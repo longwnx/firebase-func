@@ -1,7 +1,7 @@
 import {WooCommerceProduct} from "../models/Product";
 import {ReviewProduct} from "../models/Review";
-import {WoocommerceUser} from "../models/User";
 import {Order} from "../models/Order";
+import {WoocommerceUser} from "../types/user";
 
 export const convertProduct = (product: WooCommerceProduct) => {
   return {
