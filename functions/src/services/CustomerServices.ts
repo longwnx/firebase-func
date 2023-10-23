@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import Database from "../db";
 import axios from "axios";
-import {formRegister, userData} from "../models/User";
+import {formRegister, userData} from "../types/user";
 import {convertCustomerUser} from "../utils/function";
 
 export async function registerCustomer(data: formRegister) {

@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
 import {customerLogin, registerCustomer} from "../services/CustomerServices";
-import {formRegister} from "../models/User"; // eslint-disable-next-line new-cap
+import {formRegister} from "../types/user";
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -40,4 +40,4 @@ router.get("/getCurrent", async (req: Request, res: Response) => {
     });
   }
 });
-export default router;
+export {router};

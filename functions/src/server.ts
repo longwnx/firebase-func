@@ -7,6 +7,7 @@ import productRoutes from "./routes/productRoutes";
 import reviewRoutes from "./routes/reviewRoutes";
 import customerRoutes from "./routes/customerRoutes";
 import orderRoutes from "./routes/orderRoutes";
+
 import dotenv from "dotenv";
 
 // **** Setup DotEnv config **** //
@@ -32,4 +33,4 @@ app.use("/review/v1", reviewRoutes);
 app.use("/woocommerce-user/v1", customerRoutes);
 app.use("/order/v1", orderRoutes);
 
-export default app;
+export {app};
