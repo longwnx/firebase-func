@@ -1,6 +1,6 @@
 import {onRequest} from "firebase-functions/v2/https";
 import express from "express";
-import app from "./server";
+import {app} from "./server";
 
 const expressApp = express();
 
