@@ -125,8 +125,6 @@ export const handleDeleteCartItemRequest = async (
       {returnDocument: "after"},
     );
 
-    console.log("result", result);
-
     if (result) {
       return res.status(HttpStatusCodes.OK).json({
         message: "Item removed from the cart",
