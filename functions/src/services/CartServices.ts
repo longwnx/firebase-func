@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import Database from "../db";
 import HttpStatusCodes from "../constants/HttpStatusCodes";
-import {Collection, ObjectId} from "mongodb";
+import {Collection, ObjectId, UpdateFilter} from "mongodb";
 
 export const handleAddItemCartRequest = async (req: Request, res: Response) => {
   try {
@@ -60,18 +60,34 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
         .json({error: "Invalid request, cartId is missing"});
     }
 
-    const result = await collection.findOneAndUpdate(
-      {_id: new ObjectId(cartId)},
-      {$push: {lineItems: lineItems[0]}},
-      {returnDocument: "after"},
-    );
+    const existingProduct = await collection.findOne({
+      "_id": new ObjectId(cartId),
+      "lineItems.productId": lineItems[0].productId,
+    });
 
-    console.log("result", result);
+    let result;
 
-    if (result?.value) {
+    if (existingProduct) {
+      result = await collection.findOneAndUpdate(
+        {
+          "_id": new ObjectId(cartId),
+          "lineItems.productId": lineItems[0].productId,
+        },
+        {$inc: {"lineItems.$.quantity": lineItems[0].quantity}},
+        {returnDocument: "after"},
+      );
+    } else {
+      result = await collection.findOneAndUpdate(
+        {_id: new ObjectId(cartId)},
+        {$push: {lineItems: lineItems[0]}},
+        {returnDocument: "after"},
+      );
+    }
+
+    if (result) {
       return res.status(HttpStatusCodes.OK).json({
         message: "Cart updated successfully",
-        data: result.value,
+        data: {cartId: result?._id, ...result},
       });
     } else {
       return res
@@ -91,8 +107,8 @@ export const handleDeleteCartItemRequest = async (
 ) => {
   try {
     const db = Database.db;
-    const collection = db?.collection("Cart");
-    const {cartId, itemId} = req.params;
+    const collection: Collection = db?.collection("Cart") as Collection;
+    const {cartId, productId} = req.params;
     const deviceId = req.headers.deviceid;
 
     if (!deviceId) {
@@ -100,18 +116,22 @@ export const handleDeleteCartItemRequest = async (
         .status(HttpStatusCodes.BAD_REQUEST)
         .json({error: "Invalid request, deviceId is missing"});
     }
-
-    const result = await collection?.findOneAndUpdate(
-      {cartId: cartId},
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      {$pull: {carts: {product_id: {$eq: itemId}}}},
+    const update: UpdateFilter<Document> = {
+      $pull: {lineItems: {productId: productId}},
+    };
+    const result = await collection.findOneAndUpdate(
+      {_id: new ObjectId(cartId)},
+      update as any,
+      {returnDocument: "after"},
     );
 
-    if (result?.value) {
-      return res
-        .status(HttpStatusCodes.OK)
-        .json({message: "Item removed from the cart"});
+    console.log("result", result);
+
+    if (result) {
+      return res.status(HttpStatusCodes.OK).json({
+        message: "Item removed from the cart",
+        data: {cartId: result?._id, ...result},
+      });
     } else {
       return res
         .status(HttpStatusCodes.NOT_FOUND)

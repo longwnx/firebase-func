@@ -13,5 +13,5 @@ router.get("/list", getListOrder);
 router.get("/get/:id", getDetailOrder);
 router.post("/carts/create", handleAddItemCartRequest);
 router.put("/carts/:cartId/items", handleUpdateCartRequest);
-router.delete("/carts/:cartId/items/:itemId", handleDeleteCartItemRequest);
+router.delete("/carts/:cartId/items/:productId", handleDeleteCartItemRequest);
 export default router;
