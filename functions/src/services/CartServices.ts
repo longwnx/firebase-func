@@ -11,14 +11,20 @@ export const handleGetCartRequest = async (req: Request, res: Response) => {
     const db = Database.db;
     const collection: Collection = db?.collection("Cart") as Collection;
     const cartId = req.query.cartId as string;
+    const customerId = req.query.customerId as string;
 
-    if (!cartId) {
+    if (!cartId && !customerId) {
       return res
         .status(HttpStatusCodes.BAD_REQUEST)
-        .json({error: "Invalid request, cartId is missing"});
+        .json({error: "Invalid request, cartId and customerId is missing"});
     }
 
-    const result = await collection.findOne({_id: new ObjectId(cartId)});
+    let result;
+    if (cartId) {
+      result = await collection.findOne({_id: new ObjectId(cartId)});
+    } else if (customerId) {
+      result = await collection.findOne({customerId: customerId});
+    }
 
     if (result) {
       return res.status(HttpStatusCodes.OK).json({
@@ -211,7 +217,7 @@ export const handleDeleteCartItemRequest = async (
         .json({error: "Invalid request, JM360_DEVICE_KEY is missing"});
     }
     const update: UpdateFilter<Document> = {
-      $pull: {lineItems: {productId: productId}},
+      $pull: {lineItems: {productId: Number(productId)}},
     };
     const result = await collection.findOneAndUpdate(
       {_id: new ObjectId(cartId)},
@@ -228,6 +234,47 @@ export const handleDeleteCartItemRequest = async (
       return res
         .status(HttpStatusCodes.NOT_FOUND)
         .json({error: "Cart not found"});
+    }
+  } catch (error) {
+    return res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({error: "An error occurred while processing the request"});
+  }
+};
+
+export const handleCustomerCartRequest = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const db = Database.db;
+    const collection: Collection = db?.collection("Cart") as Collection;
+    const {cartId, customerId} = req.body;
+
+    if (!cartId || !customerId) {
+      return res
+        .status(HttpStatusCodes.BAD_REQUEST)
+        .json({error: "Invalid request, cartId and customerId are required"});
+    }
+
+    const result = await collection.findOneAndUpdate(
+      {
+        _id: new ObjectId(cartId),
+      },
+      {
+        $set: {customerId: customerId},
+      },
+    );
+
+    if (result) {
+      return res.status(HttpStatusCodes.OK).json({
+        message: "Item customer updated successfully",
+        data: result,
+      });
+    } else {
+      return res
+        .status(HttpStatusCodes.NOT_FOUND)
+        .json({error: "Item not found in the cart"});
     }
   } catch (error) {
     return res
