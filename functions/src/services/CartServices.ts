@@ -3,11 +3,44 @@ import Database from "../db";
 import HttpStatusCodes from "../constants/HttpStatusCodes";
 import {Collection, ObjectId, UpdateFilter} from "mongodb";
 
+export const handleGetCartRequest = async (req: Request, res: Response) => {
+  try {
+    const db = Database.db;
+    const collection: Collection = db?.collection("Cart") as Collection;
+    const cartId = req.query.cartId as string;
+
+    if (!cartId) {
+      return res
+        .status(HttpStatusCodes.BAD_REQUEST)
+        .json({error: "Invalid request, cartId is missing"});
+    }
+
+    const result = await collection.findOne({_id: new ObjectId(cartId)});
+
+    if (result) {
+      return res.status(HttpStatusCodes.OK).json({
+        message: "Cart retrieved successfully",
+        data: {
+          id: result._id,
+          ...result,
+        },
+      });
+    } else {
+      return res
+        .status(HttpStatusCodes.NOT_FOUND)
+        .json({error: "Cart not found"});
+    }
+  } catch (error) {
+    return res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({error: "An error occurred while processing the request"});
+  }
+};
 export const handleAddItemCartRequest = async (req: Request, res: Response) => {
   try {
     const db = Database.db;
     const collection: Collection = db?.collection("Cart") as Collection;
-    const {userId, lineItems} = req.body;
+    const {customerId, lineItems, grandTotal} = req.body;
     const deviceId = req.headers.deviceid;
 
     if (!deviceId) {
@@ -17,9 +50,10 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
     }
 
     const result = await collection.insertOne({
-      userId,
+      customerId,
       deviceId,
       lineItems,
+      grandTotal,
     });
 
     if (result.insertedId) {
@@ -27,8 +61,8 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
 
       if (data) {
         return res.status(HttpStatusCodes.CREATED).json({
-          message: "New cart created and saved with userId",
-          data: {cartId: data?._id, ...data},
+          message: "New cart created and saved with customerId",
+          data: {id: data?._id, ...data},
         });
       } else {
         return res
@@ -87,7 +121,7 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
     if (result) {
       return res.status(HttpStatusCodes.OK).json({
         message: "Cart updated successfully",
-        data: {cartId: result?._id, ...result},
+        data: {id: result?._id, ...result},
       });
     } else {
       return res
@@ -128,7 +162,7 @@ export const handleDeleteCartItemRequest = async (
     if (result) {
       return res.status(HttpStatusCodes.OK).json({
         message: "Item removed from the cart",
-        data: {cartId: result?._id, ...result},
+        data: {id: result?._id, ...result},
       });
     } else {
       return res

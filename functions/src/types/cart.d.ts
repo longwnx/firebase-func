@@ -6,6 +6,6 @@ interface CartItem {
 
 interface Cart {
   cartId: string;
-  userId: string;
+  customerId: string;
   lineItems: CartItem[];
 }
