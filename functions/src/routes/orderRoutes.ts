@@ -6,6 +6,7 @@ import {
   handleDeleteCartItemRequest,
   handleGetCartRequest,
   handleUpdateCartRequest,
+  handleUpdateQuantityRequest,
 } from "../services/CartServices"; // eslint-disable-next-line new-cap
 
 // eslint-disable-next-line new-cap
@@ -18,4 +19,5 @@ router.post("/carts/create", handleAddItemCartRequest);
 router.put("/carts/:cartId/items", handleUpdateCartRequest);
 router.delete("/carts/:cartId/items/:productId", handleDeleteCartItemRequest);
 router.post("/carts/update/customer", handleCustomerCartRequest);
+router.put("/carts/:cartId/items/:itemId/qty", handleUpdateQuantityRequest);
 export default router;

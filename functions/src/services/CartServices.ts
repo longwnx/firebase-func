@@ -282,3 +282,47 @@ export const handleCustomerCartRequest = async (
       .json({error: "An error occurred while processing the request"});
   }
 };
+
+export const handleUpdateQuantityRequest = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const db = Database.db;
+    const collection: Collection = db?.collection("Cart") as Collection;
+    const {productId, quantity} = req.body;
+    const cartId = req.query.cartId as string;
+    const itemId = req.query.itemId as string;
+
+    if (!productId || !quantity || isNaN(quantity)) {
+      return res.status(HttpStatusCodes.BAD_REQUEST).json({
+        error: "Invalid request, productId and quantity are required",
+      });
+    }
+
+    const result = await collection.findOneAndUpdate(
+      {
+        "_id": new ObjectId(cartId),
+        "lineItems.productId": productId,
+      },
+      {
+        $set: {"lineItems.$.quantity": quantity},
+      },
+    );
+
+    if (result) {
+      return res.status(HttpStatusCodes.OK).json({
+        message: "Quantity updated successfully",
+        data: {id: result?._id, ...result},
+      });
+    } else {
+      return res
+        .status(HttpStatusCodes.NOT_FOUND)
+        .json({error: "Product not found in the cart"});
+    }
+  } catch (error) {
+    return res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({error: "An error occurred while processing the request"});
+  }
+};
