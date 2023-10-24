@@ -269,7 +269,7 @@ export const handleCustomerCartRequest = async (
     if (result) {
       return res.status(HttpStatusCodes.OK).json({
         message: "Item customer updated successfully",
-        data: result,
+        data: {id: result?._id, ...result},
       });
     } else {
       return res
