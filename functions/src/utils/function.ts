@@ -264,3 +264,28 @@ export const convertOrderDetail = (item: Order) => {
     deleted: false,
   };
 };
+
+export const convertCartItemProduct = (product: WooCommerceProduct) => {
+  return {
+    productId: product.id,
+    sku: product.sku,
+    name: product.name,
+    url: product.external_url,
+    taxable: false,
+    imageUrl: product.images[0].src,
+    discounts: [],
+    discountAmount: 0,
+    couponAmount: 0,
+    listPrice: product.price,
+    salePrice: product.sale_price,
+    extendedListPrice: product.price,
+    extendedSalePrice: product.sale_price,
+    options: [],
+    brandName: null,
+    taxClassId: 0,
+    hasError: false,
+    hasMessages: null,
+    giftWrapping: null,
+    requireShipping: false,
+  };
+};

@@ -2,6 +2,9 @@ import {Request, Response} from "express";
 import Database from "../db";
 import HttpStatusCodes from "../constants/HttpStatusCodes";
 import {Collection, ObjectId, UpdateFilter} from "mongodb";
+import axios from "axios";
+import {convertCartItemProduct} from "../utils/function";
+import {WooCommerceProduct} from "../models/Product";
 
 export const handleGetCartRequest = async (req: Request, res: Response) => {
   try {
@@ -41,38 +44,69 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
     const db = Database.db;
     const collection: Collection = db?.collection("Cart") as Collection;
     const {customerId, lineItems, grandTotal} = req.body;
-    const deviceId = req.headers.deviceid;
+    const JM360_DEVICE_KEY = req.headers.jm360_device_key;
 
-    if (!deviceId) {
+    if (!JM360_DEVICE_KEY) {
       return res
         .status(HttpStatusCodes.BAD_REQUEST)
-        .json({error: "Invalid request, deviceId is missing"});
+        .json({error: "Invalid request, DEVICE_KEY is missing"});
     }
 
-    const result = await collection.insertOne({
-      customerId,
-      deviceId,
-      lineItems,
-      grandTotal,
-    });
+    const productId = lineItems[0].productId;
 
-    if (result.insertedId) {
-      const data = await collection.findOne({_id: result.insertedId});
+    try {
+      const product = (await axios.get(
+        `${process.env.URL}/wp-json/wc/v3/products/${productId}`,
+        {
+          params: {
+            consumer_key: process.env.CONSUMER_KEY,
+            consumer_secret: process.env.CONSUMER_SECRET,
+          },
+          headers: {},
+        },
+      )) as { data: WooCommerceProduct };
+      if (product) {
+        const itemsProduct = [
+          {...lineItems[0], ...convertCartItemProduct(product.data)},
+        ];
 
-      if (data) {
-        return res.status(HttpStatusCodes.CREATED).json({
-          message: "New cart created and saved with customerId",
-          data: {id: data?._id, ...data},
+        const result = await collection.insertOne({
+          customerId,
+          JM360_DEVICE_KEY,
+          lineItems: itemsProduct,
+          grandTotal,
         });
+
+        if (result.insertedId) {
+          const data = await collection.findOne({_id: result.insertedId});
+
+          if (data) {
+            return res.status(HttpStatusCodes.CREATED).json({
+              message: "New cart created and saved with customerId",
+              data: {
+                id: data?._id,
+                ...data,
+              },
+            });
+          } else {
+            return res
+              .status(HttpStatusCodes.NOT_FOUND)
+              .json({error: "Data retrieval error"});
+          }
+        } else {
+          return res
+            .status(HttpStatusCodes.NOT_FOUND)
+            .json({error: "Insertion error"});
+        }
       } else {
         return res
           .status(HttpStatusCodes.NOT_FOUND)
-          .json({error: "Data retrieval error"});
+          .json({error: "No products"});
       }
-    } else {
+    } catch (error) {
       return res
         .status(HttpStatusCodes.NOT_FOUND)
-        .json({error: "Insertion error"});
+        .json({error: "No products"});
     }
   } catch (error) {
     return res
@@ -94,39 +128,65 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
         .json({error: "Invalid request, cartId is missing"});
     }
 
-    const existingProduct = await collection.findOne({
-      "_id": new ObjectId(cartId),
-      "lineItems.productId": lineItems[0].productId,
-    });
+    const productId = lineItems[0].productId;
 
-    let result;
-
-    if (existingProduct) {
-      result = await collection.findOneAndUpdate(
+    try {
+      const product = (await axios.get(
+        `${process.env.URL}/wp-json/wc/v3/products/${productId}`,
         {
+          params: {
+            consumer_key: process.env.CONSUMER_KEY,
+            consumer_secret: process.env.CONSUMER_SECRET,
+          },
+          headers: {},
+        },
+      )) as { data: WooCommerceProduct };
+
+      if (product) {
+        const itemsProduct = [
+          {...lineItems[0], ...convertCartItemProduct(product.data)},
+        ];
+        const existingProduct = await collection.findOne({
           "_id": new ObjectId(cartId),
           "lineItems.productId": lineItems[0].productId,
-        },
-        {$inc: {"lineItems.$.quantity": lineItems[0].quantity}},
-        {returnDocument: "after"},
-      );
-    } else {
-      result = await collection.findOneAndUpdate(
-        {_id: new ObjectId(cartId)},
-        {$push: {lineItems: lineItems[0]}},
-        {returnDocument: "after"},
-      );
-    }
+        });
 
-    if (result) {
-      return res.status(HttpStatusCodes.OK).json({
-        message: "Cart updated successfully",
-        data: {id: result?._id, ...result},
-      });
-    } else {
-      return res
-        .status(HttpStatusCodes.NOT_FOUND)
-        .json({error: "Cart not found or update failed"});
+        let result;
+
+        if (existingProduct) {
+          result = await collection.findOneAndUpdate(
+            {
+              "_id": new ObjectId(cartId),
+              "lineItems.productId": lineItems[0].productId,
+            },
+            {$inc: {"lineItems.$.quantity": lineItems[0].quantity}},
+            {returnDocument: "after"},
+          );
+        } else {
+          result = await collection.findOneAndUpdate(
+            {_id: new ObjectId(cartId)},
+            {$push: {lineItems: itemsProduct[0]}},
+            {returnDocument: "after"},
+          );
+        }
+
+        if (result) {
+          return res.status(HttpStatusCodes.OK).json({
+            message: "Cart updated successfully",
+            data: {id: result?._id, ...result},
+          });
+        } else {
+          return res
+            .status(HttpStatusCodes.NOT_FOUND)
+            .json({error: "Cart not found or update failed"});
+        }
+      } else {
+        return res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json({error: "No products"});
+      }
+    } catch (err) {
+      return res.status(HttpStatusCodes.NOT_FOUND).json({message: err});
     }
   } catch (error) {
     return res
@@ -143,12 +203,12 @@ export const handleDeleteCartItemRequest = async (
     const db = Database.db;
     const collection: Collection = db?.collection("Cart") as Collection;
     const {cartId, productId} = req.params;
-    const deviceId = req.headers.deviceid;
+    const JM360_DEVICE_KEY = req.headers.jm360_device_key;
 
-    if (!deviceId) {
+    if (!JM360_DEVICE_KEY) {
       return res
         .status(HttpStatusCodes.BAD_REQUEST)
-        .json({error: "Invalid request, deviceId is missing"});
+        .json({error: "Invalid request, JM360_DEVICE_KEY is missing"});
     }
     const update: UpdateFilter<Document> = {
       $pull: {lineItems: {productId: productId}},
