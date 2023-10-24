@@ -32,6 +32,11 @@ export const handleGetCartRequest = async (req: Request, res: Response) => {
         data: {
           id: result._id,
           ...result,
+          grandTotal: result.lineItems.reduce(
+            (acc: any, item: any) =>
+              acc + parseFloat(item.salePrice) * item.quantity,
+            0,
+          ),
         },
       });
     } else {
@@ -49,7 +54,7 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
   try {
     const db = Database.db;
     const collection: Collection = db?.collection("Cart") as Collection;
-    const {customerId, lineItems, grandTotal} = req.body;
+    const {customerId, lineItems} = req.body;
     const JM360_DEVICE_KEY = req.headers.jm360_device_key;
 
     if (!JM360_DEVICE_KEY) {
@@ -80,7 +85,6 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
           customerId,
           JM360_DEVICE_KEY,
           lineItems: itemsProduct,
-          grandTotal,
         });
 
         if (result.insertedId) {
@@ -92,6 +96,11 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
               data: {
                 id: data?._id,
                 ...data,
+                grandTotal: data.lineItems.reduce(
+                  (acc: any, item: any) =>
+                    acc + parseFloat(item.salePrice) * item.quantity,
+                  0,
+                ),
               },
             });
           } else {
@@ -179,7 +188,15 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
         if (result) {
           return res.status(HttpStatusCodes.OK).json({
             message: "Cart updated successfully",
-            data: {id: result?._id, ...result},
+            data: {
+              id: result?._id,
+              ...result,
+              grandTotal: result.lineItems.reduce(
+                (acc: any, item: any) =>
+                  acc + parseFloat(item.salePrice) * item.quantity,
+                0,
+              ),
+            },
           });
         } else {
           return res
@@ -228,7 +245,15 @@ export const handleDeleteCartItemRequest = async (
     if (result) {
       return res.status(HttpStatusCodes.OK).json({
         message: "Item removed from the cart",
-        data: {id: result?._id, ...result},
+        data: {
+          id: result?._id,
+          ...result,
+          grandTotal: result.lineItems.reduce(
+            (acc: any, item: any) =>
+              acc + parseFloat(item.salePrice) * item.quantity,
+            0,
+          ),
+        },
       });
     } else {
       return res
@@ -269,7 +294,15 @@ export const handleCustomerCartRequest = async (
     if (result) {
       return res.status(HttpStatusCodes.OK).json({
         message: "Item customer updated successfully",
-        data: {id: result?._id, ...result},
+        data: {
+          id: result?._id,
+          ...result,
+          grandTotal: result.lineItems.reduce(
+            (acc: any, item: any) =>
+              acc + parseFloat(item.salePrice) * item.quantity,
+            0,
+          ),
+        },
       });
     } else {
       return res
@@ -313,7 +346,15 @@ export const handleUpdateQuantityRequest = async (
     if (result) {
       return res.status(HttpStatusCodes.OK).json({
         message: "Quantity updated successfully",
-        data: {id: result?._id, ...result},
+        data: {
+          id: result?._id,
+          ...result,
+          grandTotal: result.lineItems.reduce(
+            (acc: any, item: any) =>
+              acc + parseFloat(item.salePrice) * item.quantity,
+            0,
+          ),
+        },
       });
     } else {
       return res

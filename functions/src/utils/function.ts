@@ -21,6 +21,10 @@ export const convertProduct = (product: WooCommerceProduct) => {
     height:
       product?.dimensions?.height !== "" ? product?.dimensions?.height : null,
     price: product?.price || "",
+    prices: {
+      originalPrice: product.price,
+      salePrice: product.sale_price,
+    },
     categories: product?.categories?.map((cate) => cate?.id) || null,
     brandId: null,
     brandName: "",
