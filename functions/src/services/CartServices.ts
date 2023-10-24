@@ -291,8 +291,7 @@ export const handleUpdateQuantityRequest = async (
     const db = Database.db;
     const collection: Collection = db?.collection("Cart") as Collection;
     const {productId, quantity} = req.body;
-    const cartId = req.query.cartId as string;
-    const itemId = req.query.itemId as string;
+    const cartId = req.params.cartId as string;
 
     if (!productId || !quantity || isNaN(quantity)) {
       return res.status(HttpStatusCodes.BAD_REQUEST).json({
@@ -303,11 +302,12 @@ export const handleUpdateQuantityRequest = async (
     const result = await collection.findOneAndUpdate(
       {
         "_id": new ObjectId(cartId),
-        "lineItems.productId": productId,
+        "lineItems.productId": Number(productId),
       },
       {
         $set: {"lineItems.$.quantity": quantity},
       },
+      {returnDocument: "after"},
     );
 
     if (result) {
