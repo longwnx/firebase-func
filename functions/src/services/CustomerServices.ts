@@ -147,57 +147,6 @@ export const handleGetAddressListRequest = async (
         formFields: [
           {
             form: "address",
-            code: "first-name",
-            type: "text-field",
-            name: "First Name",
-            displayName: "Họ và Tên Đệm",
-            sequence: 100,
-            required: true,
-            customField: false,
-            value: data.first_name,
-            maxLength: 0,
-            instructionalText: "",
-            minDateString: null,
-            maxDateString: null,
-            pickList: null,
-            keyValues: null,
-          },
-          {
-            form: "address",
-            code: "last-name",
-            type: "text-field",
-            name: "Last Name",
-            displayName: "Tên",
-            sequence: 101,
-            required: true,
-            customField: false,
-            value: data.last_name,
-            maxLength: 0,
-            instructionalText: "",
-            minDateString: null,
-            maxDateString: null,
-            pickList: null,
-            keyValues: null,
-          },
-          {
-            form: "address",
-            code: "phone-number",
-            type: "text-field",
-            name: "Phone Number",
-            displayName: "Số điện thoại",
-            sequence: 102,
-            required: true,
-            customField: false,
-            value: data.billing.phone,
-            maxLength: 0,
-            instructionalText: "",
-            minDateString: null,
-            maxDateString: null,
-            pickList: null,
-            keyValues: null,
-          },
-          {
-            form: "address",
             code: "address-1",
             type: "text-field",
             name: "Address Line 1",
@@ -289,5 +238,70 @@ export const handleGetAddressListRequest = async (
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
       .json({message: err?.response.data.message.toString()});
+  }
+};
+
+export const handleUpdateAddress = async (req: Request, res: Response) => {
+  try {
+    const customerId = req.params.id;
+    const bodyData = req.body;
+
+    const result = {
+      address_1: "",
+      address_2: "",
+      city: "",
+      state: "",
+      country: "",
+    };
+    bodyData.info.forEach((item: any) => {
+      switch (item.code) {
+      case "address-1":
+        result.address_1 = item.value;
+        break;
+      case "address-2":
+        result.address_2 = item.value;
+        break;
+      case "suburb-city":
+        result.city = item.value;
+        break;
+      case "state-province":
+        result.state = item.value;
+        break;
+      case "country":
+        result.country = item.value;
+        break;
+      }
+    });
+    const {data} = (await axios.put(
+      `${process.env.URL}/wp-json/wc/v3/customers/${customerId}`,
+      {
+        billing: {
+          address_1: result.address_1,
+          address_2: result.address_2,
+          city: result.city,
+          state: result.state,
+          country: result.country,
+        },
+        shipping: {
+          address_1: result.address_1,
+          address_2: result.address_2,
+          city: result.city,
+          state: result.state,
+          country: result.country,
+        },
+      },
+      {
+        params: {
+          consumer_key: process.env.CONSUMER_KEY,
+          consumer_secret: process.env.CONSUMER_SECRET,
+        },
+      },
+    )) as { data: WoocommerceUser };
+
+    res.status(HttpStatusCodes.OK).json({message: "Success!", data: data});
+  } catch (error: any) {
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: error?.response.data.message.toString()});
   }
 };

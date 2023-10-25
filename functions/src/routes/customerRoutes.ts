@@ -1,5 +1,10 @@
 import express, {Request, Response} from "express";
-import {customerLogin, handleGetAddressListRequest, registerCustomer} from "../services/CustomerServices";
+import {
+  customerLogin,
+  handleGetAddressListRequest,
+  handleUpdateAddress,
+  registerCustomer,
+} from "../services/CustomerServices";
 import {formRegister} from "../types/user";
 
 // eslint-disable-next-line new-cap
@@ -42,4 +47,5 @@ router.get("/getCurrent", async (req: Request, res: Response) => {
 });
 
 router.get("/address/list/:id", handleGetAddressListRequest);
+router.put("/address/edit/:id", handleUpdateAddress);
 export default router;
