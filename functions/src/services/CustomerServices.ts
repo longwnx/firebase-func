@@ -1,8 +1,10 @@
 /* eslint-disable require-jsdoc */
 import Database from "../db";
 import axios from "axios";
-import {formRegister, userData} from "../types/user";
+import {formRegister, userData, WoocommerceUser} from "../types/user";
 import {convertCustomerUser} from "../utils/function";
+import {Request, Response} from "express";
+import HttpStatusCodes from "../constants/HttpStatusCodes";
 
 export async function registerCustomer(data: formRegister) {
   try {
@@ -115,3 +117,177 @@ export async function customerLogin(phone: string) {
     throw error?.toString();
   }
 }
+
+export const handleGetAddressListRequest = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const {id} = req.params;
+    const {data} = (await axios.get(
+      `${process.env.URL}/wp-json/wc/v3/customers/${id}`,
+      {
+        params: {
+          consumer_key: process.env.CONSUMER_KEY,
+          consumer_secret: process.env.CONSUMER_SECRET,
+        },
+      },
+    )) as { data: WoocommerceUser };
+    const address = [
+      {
+        id: data.id,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        street1: data.billing.address_1,
+        street2: data.billing.address_2,
+        city: data.billing.city,
+        state: data.billing.state,
+        country: data.billing.country,
+        phone: data.billing.phone,
+        formFields: [
+          {
+            form: "address",
+            code: "first-name",
+            type: "text-field",
+            name: "First Name",
+            displayName: "Họ và Tên Đệm",
+            sequence: 100,
+            required: true,
+            customField: false,
+            value: data.first_name,
+            maxLength: 0,
+            instructionalText: "",
+            minDateString: null,
+            maxDateString: null,
+            pickList: null,
+            keyValues: null,
+          },
+          {
+            form: "address",
+            code: "last-name",
+            type: "text-field",
+            name: "Last Name",
+            displayName: "Tên",
+            sequence: 101,
+            required: true,
+            customField: false,
+            value: data.last_name,
+            maxLength: 0,
+            instructionalText: "",
+            minDateString: null,
+            maxDateString: null,
+            pickList: null,
+            keyValues: null,
+          },
+          {
+            form: "address",
+            code: "phone-number",
+            type: "text-field",
+            name: "Phone Number",
+            displayName: "Số điện thoại",
+            sequence: 102,
+            required: true,
+            customField: false,
+            value: data.billing.phone,
+            maxLength: 0,
+            instructionalText: "",
+            minDateString: null,
+            maxDateString: null,
+            pickList: null,
+            keyValues: null,
+          },
+          {
+            form: "address",
+            code: "address-1",
+            type: "text-field",
+            name: "Address Line 1",
+            displayName: "Địa chỉ",
+            sequence: 104,
+            required: true,
+            customField: false,
+            value: data.billing.address_1,
+            maxLength: 0,
+            instructionalText: "",
+            minDateString: null,
+            maxDateString: null,
+            pickList: null,
+            keyValues: null,
+          },
+          {
+            form: "address",
+            code: "address-2",
+            type: "text-field",
+            name: "Address Line 2",
+            displayName: "Địa chỉ 2",
+            sequence: 105,
+            required: false,
+            customField: false,
+            value: data.billing.address_2,
+            maxLength: 0,
+            instructionalText: "",
+            minDateString: null,
+            maxDateString: null,
+            pickList: null,
+            keyValues: null,
+          },
+          {
+            form: "address",
+            code: "suburb-city",
+            type: "text-field",
+            name: "Suburb/City",
+            displayName: "Thành Phố",
+            sequence: 106,
+            required: true,
+            customField: false,
+            value: data.billing.city,
+            maxLength: 0,
+            instructionalText: "",
+            minDateString: null,
+            maxDateString: null,
+            pickList: null,
+            keyValues: null,
+          },
+          {
+            form: "address",
+            code: "state-province",
+            type: "state-list",
+            name: "State/Province",
+            displayName: "Tỉnh",
+            sequence: 107,
+            required: true,
+            customField: false,
+            value: data.billing.state,
+            maxLength: 0,
+            instructionalText: "",
+            minDateString: null,
+            maxDateString: null,
+            pickList: null,
+            keyValues: null,
+          },
+          {
+            form: "address",
+            code: "country",
+            type: "country-list",
+            name: "Country",
+            displayName: "Quốc gia",
+            sequence: 108,
+            required: true,
+            customField: false,
+            value: data.billing.country,
+            maxLength: 0,
+            instructionalText: "",
+            minDateString: null,
+            maxDateString: null,
+            pickList: null,
+            keyValues: null,
+          },
+        ],
+      },
+    ];
+    res.status(HttpStatusCodes.OK).json({message: "Success!", data: address});
+  } catch (err: any) {
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: err?.response.data.message.toString()});
+  }
+};
