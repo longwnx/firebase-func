@@ -70,4 +70,36 @@ export const getDetailOrder = async (req: Request, res: Response) => {
   }
 };
 
+export const handleCreateOrderRequest = async (req: Request, res: Response) => {
+  try {
+    const orderId = req.params.id as string;
+    const {data} = (await axios.post(
+      `${process.env.URL}/wp-json/wc/v3/orders`,
+      {
+        line_items: [
+          {
+            product_id: 93,
+            quantity: 2,
+          },
+          {
+            product_id: 22,
+            variation_id: 23,
+            quantity: 1,
+          },
+        ],
+      },
+      {
+        params: {
+          consumer_key: process.env.CONSUMER_KEY,
+          consumer_secret: process.env.CONSUMER_SECRET,
+        },
+      },
+    )) as { data: Order };
+  } catch (error: any) {
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: error?.response.data.message.toString()});
+  }
+};
+
 export default {getListOrder, getDetailOrder};
