@@ -1,7 +1,6 @@
 import express, {Request, Response} from "express";
-import {getListProduct, getProductID} from "../services/ProductServices";
+import {getListProduct, getProductID} from "../services/productServices";
 
-// eslint-disable-next-line new-cap
 const router = express.Router();
 
 // Route POST /create-app

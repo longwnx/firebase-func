@@ -72,19 +72,19 @@ export const getDetailOrder = async (req: Request, res: Response) => {
 
 export const handleCreateOrderRequest = async (req: Request, res: Response) => {
   try {
-    const orderId = req.params.id as string;
+    const body = req.body;
     const {data} = (await axios.post(
       `${process.env.URL}/wp-json/wc/v3/orders`,
       {
-        line_items: [
+        ...body,
+        payment_method: "cod",
+        payment_method_title: "Cash on delivery",
+        set_paid: true,
+        shipping_lines: [
           {
-            product_id: 93,
-            quantity: 2,
-          },
-          {
-            product_id: 22,
-            variation_id: 23,
-            quantity: 1,
+            method_id: "flat_rate",
+            method_title: "Flat Rate",
+            total: "0",
           },
         ],
       },
@@ -95,6 +95,11 @@ export const handleCreateOrderRequest = async (req: Request, res: Response) => {
         },
       },
     )) as { data: Order };
+    if (data) {
+      res.status(HttpStatusCodes.OK).json({message: "Success!", data: data});
+    } else {
+      res.status(HttpStatusCodes.NOT_FOUND).json({message: "Khong có data"});
+    }
   } catch (error: any) {
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)

@@ -8,13 +8,12 @@ import {
   getLayoutByAppKey,
   getPagesByAppKey,
   getSettingByAppKey,
-} from "../services/AppServices";
+} from "../services/appServices";
 import {AppData} from "../models/App";
 import {SettingData} from "../models/Setting";
 import {LayoutData} from "../models/Layout";
 import {PageLayoutData} from "../models/Page";
 
-// eslint-disable-next-line new-cap
 const router = express.Router();
 
 // Route POST /create-app

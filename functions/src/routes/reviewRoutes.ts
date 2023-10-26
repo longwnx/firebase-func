@@ -1,9 +1,10 @@
-// eslint-disable-next-line new-cap
 import express, {Request, Response} from "express";
-// eslint-disable-next-line max-len
-import {getProductReview, getProductTop3Review, getReviewSummary} from "../services/ReviewServices";
+import {
+  getProductReview,
+  getProductTop3Review,
+  getReviewSummary,
+} from "../services/reviewServices";
 
-// eslint-disable-next-line new-cap
 const router = express.Router();
 
 // Route POST /create-app

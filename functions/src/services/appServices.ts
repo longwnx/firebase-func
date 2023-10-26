@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 import {AppData} from "../models/App";
 import Database from "../db";
 import {InsertOneResult} from "mongodb"; // Import đối tượng cơ sở dữ liệu
@@ -7,6 +6,12 @@ import {SettingData} from "../models/Setting";
 import {LayoutData} from "../models/Layout";
 import {PageLayoutData} from "../models/Page";
 
+/**
+ * Creates an app with the provided data.
+ * @param {AppData} data - The data for the app.
+ * @return {Promise<InsertOneResult<Document>>} A promise containing the result of the insertion.
+ * @throws Will throw an error if there's an issue while saving the data.
+ */
 export async function createApp(
   data: AppData,
 ): Promise<InsertOneResult<Document>> {
@@ -26,6 +31,12 @@ export async function createApp(
   }
 }
 
+/**
+ * Retrieves an app based on the provided appKey.
+ * @param {string} appKey - The appKey used to retrieve the app.
+ * @return {Promise<Document | null>} A promise containing the retrieved app or null if not found.
+ * @throws Will throw an error if there's an issue while retrieving the data.
+ */
 export async function getAppByAppKey(appKey: string) {
   try {
     const db = Database.db;
@@ -36,7 +47,13 @@ export async function getAppByAppKey(appKey: string) {
   }
 }
 
-export async function addSetting(data: SettingData) {
+/**
+ * Adds a setting with the provided data.
+ * @param {SettingData} data - The data for the setting.
+ * @return {Promise<SettingData>} A promise containing the added or updated setting data.
+ * @throws Will throw an error if there's an issue while saving the data.
+ */
+export async function addSetting(data: SettingData): Promise<SettingData> {
   try {
     const db = Database.db;
     const collection = db?.collection("Setting");
@@ -67,6 +84,12 @@ export async function addSetting(data: SettingData) {
   }
 }
 
+/**
+ * Retrieves a setting based on the provided appKey.
+ * @param {string} appKey - The appKey used to retrieve the setting.
+ * @return {Promise<Document | null>} A promise containing the retrieved setting or null if not found.
+ * @throws Will throw an error if there's an issue while processing the request.
+ */
 export async function getSettingByAppKey(appKey: string) {
   try {
     const db = Database.db;
@@ -84,7 +107,13 @@ export async function getSettingByAppKey(appKey: string) {
   }
 }
 
-export async function addLayout(data: LayoutData) {
+/**
+ * Adds a layout with the provided data.
+ * @param {LayoutData} data - The data for the layout.
+ * @return {Promise<LayoutData>} A promise containing the added or updated layout data.
+ * @throws Will throw an error if there's an issue while saving the data.
+ */
+export async function addLayout(data: LayoutData): Promise<LayoutData> {
   try {
     const db = Database.db;
     const collection = db?.collection("Layout");
@@ -115,6 +144,12 @@ export async function addLayout(data: LayoutData) {
   }
 }
 
+/**
+ * Retrieves a layout based on the provided appKey.
+ * @param {string} appKey - The appKey used to retrieve the layout.
+ * @return {Promise<Document | null>} A promise containing the retrieved layout or null if not found.
+ * @throws Will throw an error if there's an issue while processing the request.
+ */
 export async function getLayoutByAppKey(appKey: string) {
   try {
     const db = Database.db;
@@ -132,6 +167,12 @@ export async function getLayoutByAppKey(appKey: string) {
   }
 }
 
+/**
+ * Adds a page with the provided data.
+ * @param {PageLayoutData} data - The data for the page layout.
+ * @return {Promise<PageLayoutData>} A promise containing the added page layout data.
+ * @throws Will throw an error if there's an issue while saving the data.
+ */
 export async function addPage(data: PageLayoutData) {
   try {
     const db = Database.db;
@@ -147,6 +188,12 @@ export async function addPage(data: PageLayoutData) {
   }
 }
 
+/**
+ * Retrieves pages based on the provided appKey.
+ * @param {string} appKey - The appKey used to retrieve the pages.
+ * @return {Promise<Array<Object>>} A promise containing an array of retrieved pages.
+ * @throws Will throw an error if there's an issue while processing the request.
+ */
 export async function getPagesByAppKey(appKey: string) {
   try {
     const db = Database.db;

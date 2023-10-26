@@ -4,7 +4,7 @@ import {
   handleGetAddressListRequest,
   handleUpdateAddress,
   registerCustomer,
-} from "../services/CustomerServices";
+} from "../services/customerServices";
 import {formRegister} from "../types/user";
 
 // eslint-disable-next-line new-cap

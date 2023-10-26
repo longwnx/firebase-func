@@ -1,5 +1,9 @@
 import express from "express";
-import {getDetailOrder, getListOrder, handleCreateOrderRequest} from "../services/OrderServices";
+import {
+  getDetailOrder,
+  getListOrder,
+  handleCreateOrderRequest,
+} from "../services/orderServices";
 import {
   handleAddItemCartRequest,
   handleCustomerCartRequest,
@@ -7,9 +11,8 @@ import {
   handleGetCartRequest,
   handleUpdateCartRequest,
   handleUpdateQuantityRequest,
-} from "../services/CartServices"; // eslint-disable-next-line new-cap
+} from "../services/cartServices";
 
-// eslint-disable-next-line new-cap
 const router = express.Router();
 
 router.get("/list", getListOrder);
