@@ -22,29 +22,8 @@ router.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/login", async (req: Request, res: Response) => {
-  try {
-    const phone = req.body.phone as string;
-    const user = await customerLogin(phone);
-    res.json({message: "Đăng nhập thành công", data: user});
-  } catch (error) {
-    res.status(500).json({
-      error: error?.toString(),
-    });
-  }
-});
-
-router.get("/getCurrent", async (req: Request, res: Response) => {
-  try {
-    const phone = req.query.phone as string;
-    const user = await customerLogin(phone);
-    res.json({message: "Success!", data: user});
-  } catch (error) {
-    res.status(500).json({
-      error: error?.toString(),
-    });
-  }
-});
+router.post("/login", customerLogin);
+router.get("/getCurrent", customerLogin);
 
 router.get("/address/list/:id", handleGetAddressListRequest);
 router.put("/address/edit/:id", handleUpdateAddress);

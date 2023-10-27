@@ -80,8 +80,9 @@ export async function registerCustomer(data: formRegister) {
   }
 }
 
-export async function customerLogin(phone: string) {
+export async function customerLogin(req: Request, res: Response) {
   try {
+    const phone = req.body.phone as string;
     const db = Database.db;
     const collection = db?.collection("User");
     if (collection) {
@@ -100,24 +101,31 @@ export async function customerLogin(phone: string) {
           );
 
           if (data) {
-            return {
-              woocommerceUser: convertCustomerUser(data, result?.phone),
-            };
+            res.status(HttpStatusCodes.OK).json({
+              message: "Success!",
+              data: {
+                woocommerceUser: convertCustomerUser(data, result?.phone || ""),
+              },
+            });
           } else {
-            throw new Error("Người dùng không tồn tại");
+            res
+              .status(HttpStatusCodes.NOT_FOUND)
+              .json({message: "Người dùng không tồn tại"});
           }
         } catch (error: any) {
-          throw error?.response?.data?.message?.toString();
+          res
+            .status(HttpStatusCodes.NOT_FOUND)
+            .json({message: error?.response?.data?.message?.toString()});
         }
       }
-      {
-        throw new Error("Không kết nối được đến cơ sở dữ liệu");
-      }
-    } else {
-      throw new Error("Không kết nối được đến cơ sở dữ liệu");
     }
+    res
+      .status(HttpStatusCodes.NOT_FOUND)
+      .json({message: "Không kết nối được đến cơ sở dữ liệu"});
   } catch (error: any) {
-    throw error?.toString();
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: error?.toString()});
   }
 }
 

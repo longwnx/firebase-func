@@ -1,217 +1,247 @@
 import {AppData} from "../models/App";
 import Database from "../db";
-import {InsertOneResult} from "mongodb"; // Import đối tượng cơ sở dữ liệu
 import {v4 as uuidv4} from "uuid";
-import {SettingData} from "../models/Setting";
 import {LayoutData} from "../models/Layout";
+import {Request, Response} from "express";
+import HttpStatusCodes from "../constants/HttpStatusCodes";
+import {SettingData} from "../models/Setting";
 import {PageLayoutData} from "../models/Page";
 
-/**
- * Creates an app with the provided data.
- * @param {AppData} data - The data for the app.
- * @return {Promise<InsertOneResult<Document>>} A promise containing the result of the insertion.
- * @throws Will throw an error if there's an issue while saving the data.
- */
-export async function createApp(
-  data: AppData,
-): Promise<InsertOneResult<Document>> {
+export const createApp = async (req: Request, res: Response) => {
   try {
+    const appData = req.body as AppData;
     const db = Database.db;
     const collection = db?.collection("App");
     if (collection) {
       const appKey = uuidv4();
 
-      const appDataWithKey = {...data, appKey};
-      return await collection.insertOne(appDataWithKey);
-    } else {
-      throw new Error("Database collection not found");
-    }
-  } catch (error) {
-    throw new Error("An error occurred while saving data");
-  }
-}
+      const appDataWithKey = {...appData, appKey};
 
-/**
- * Retrieves an app based on the provided appKey.
- * @param {string} appKey - The appKey used to retrieve the app.
- * @return {Promise<Document | null>} A promise containing the retrieved app or null if not found.
- * @throws Will throw an error if there's an issue while retrieving the data.
- */
-export async function getAppByAppKey(appKey: string) {
+      const result = await collection.insertOne(appDataWithKey);
+      if (result) {
+        res
+          .status(HttpStatusCodes.OK)
+          .json({message: "App created successfully", data: result});
+      }
+      res
+        .status(HttpStatusCodes.NOT_FOUND)
+        .json({message: "Không connect được database!"});
+    }
+    res
+      .status(HttpStatusCodes.NOT_FOUND)
+      .json({message: "Không connect được database!"});
+  } catch (error) {
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
+  }
+};
+
+export const getAppByAppKey = async (req: Request, res: Response) => {
   try {
+    const appKey = req.params.appKey;
     const db = Database.db;
     const collection = db?.collection("App");
-    return await collection?.findOne({appKey});
+    const result = await collection?.findOne({appKey});
+    if (result) {
+      res
+        .status(HttpStatusCodes.OK)
+        .json({message: "App found", data: result});
+    } else {
+      res.status(HttpStatusCodes.NOT_FOUND).json({message: "App not found"});
+    }
   } catch (error) {
-    throw new Error("An error occurred while saving data");
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};
 
-/**
- * Adds a setting with the provided data.
- * @param {SettingData} data - The data for the setting.
- * @return {Promise<SettingData>} A promise containing the added or updated setting data.
- * @throws Will throw an error if there's an issue while saving the data.
- */
-export async function addSetting(data: SettingData): Promise<SettingData> {
+export const addSetting = async (req: Request, res: Response) => {
   try {
+    const settingData = req.body as SettingData;
     const db = Database.db;
     const collection = db?.collection("Setting");
-    const existingSetting = await collection?.findOne({appKey: data.appKey});
+    const existingSetting = await collection?.findOne({
+      appKey: settingData.appKey,
+    });
 
     if (existingSetting) {
       const result = await collection?.replaceOne(
         {
-          appKey: data.appKey,
+          appKey: settingData.appKey,
         },
-        data,
+        settingData,
       );
       if (result?.modifiedCount > 0) {
-        return data;
+        res.status(HttpStatusCodes.OK).json({
+          message: "Setting added successfully",
+          data: result,
+        });
       } else {
         throw new Error("Failed to update setting");
       }
     } else {
-      const result = await collection?.insertOne(data);
-      if (result) {
-        return data;
+      const result2 = await collection?.insertOne(settingData);
+      if (result2) {
+        res.status(HttpStatusCodes.CREATED).json({
+          message: "Setting added successfully",
+          data: result2,
+        });
       } else {
-        throw new Error("Failed to add setting");
+        res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json({message: "Failed to add setting"});
+        // throw new Error("Failed to add setting");
       }
     }
   } catch (error) {
-    throw new Error("An error occurred while saving data");
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};
 
-/**
- * Retrieves a setting based on the provided appKey.
- * @param {string} appKey - The appKey used to retrieve the setting.
- * @return {Promise<Document | null>} A promise containing the retrieved setting or null if not found.
- * @throws Will throw an error if there's an issue while processing the request.
- */
-export async function getSettingByAppKey(appKey: string) {
+export const getSettingByAppKey = async (req: Request, res: Response) => {
   try {
+    const appKey = req.params.appKey;
     const db = Database.db;
     const collection = db?.collection("Setting");
 
     const setting = await collection?.findOne({appKey});
 
     if (setting) {
-      return setting;
+      res.status(HttpStatusCodes.OK).json({
+        message: "Setting added successfully",
+        data: setting,
+      });
     } else {
-      throw new Error("Setting not found");
+      res
+        .status(HttpStatusCodes.NOT_FOUND)
+        .json({error: "Setting not found!"});
     }
   } catch (error) {
-    throw new Error("An error occurred while processing the request");
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};
 
-/**
- * Adds a layout with the provided data.
- * @param {LayoutData} data - The data for the layout.
- * @return {Promise<LayoutData>} A promise containing the added or updated layout data.
- * @throws Will throw an error if there's an issue while saving the data.
- */
-export async function addLayout(data: LayoutData): Promise<LayoutData> {
+export const addLayout = async (req: Request, res: Response) => {
   try {
+    const layoutData = req.body as LayoutData;
     const db = Database.db;
     const collection = db?.collection("Layout");
-    const existingLayout = await collection?.findOne({appKey: data.appKey});
+    const existingLayout = await collection?.findOne({
+      appKey: layoutData.appKey,
+    });
 
     if (existingLayout) {
       const result = await collection?.replaceOne(
         {
-          appKey: data.appKey,
+          appKey: layoutData.appKey,
         },
-        data,
+        layoutData,
       );
       if (result?.modifiedCount > 0) {
-        return data;
+        res.status(HttpStatusCodes.CREATED).json({
+          message: "Setting added successfully",
+          data: result,
+        });
       } else {
-        throw new Error("Failed to update layout");
+        res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json({error: "Failed updated layout!"});
       }
     } else {
-      const result = await collection?.insertOne(data);
+      const result = await collection?.insertOne(layoutData);
       if (result) {
-        return data;
-      } else {
-        throw new Error("Failed to add layout");
+        res.status(HttpStatusCodes.OK).json({
+          message: "Setting added successfully",
+          data: result,
+        });
       }
+      res
+        .status(HttpStatusCodes.NOT_FOUND)
+        .json({error: "Failed updated layout!"});
     }
   } catch (error) {
-    throw new Error("An error occurred while saving data");
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};
 
-/**
- * Retrieves a layout based on the provided appKey.
- * @param {string} appKey - The appKey used to retrieve the layout.
- * @return {Promise<Document | null>} A promise containing the retrieved layout or null if not found.
- * @throws Will throw an error if there's an issue while processing the request.
- */
-export async function getLayoutByAppKey(appKey: string) {
+export const getLayoutByAppKey = async (req: Request, res: Response) => {
   try {
+    const appKey = req.params.appKey;
     const db = Database.db;
     const collection = db?.collection("Layout");
 
     const setting = await collection?.findOne({appKey});
 
     if (setting) {
-      return setting;
+      res.status(HttpStatusCodes.OK).json({
+        message: "Get layout successfully",
+        data: setting,
+      });
     } else {
-      throw new Error("Layout not found");
+      res.status(HttpStatusCodes.NOT_FOUND).json({error: "Layout not found"});
     }
   } catch (error) {
-    throw new Error("An error occurred while processing the request");
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};
 
-/**
- * Adds a page with the provided data.
- * @param {PageLayoutData} data - The data for the page layout.
- * @return {Promise<PageLayoutData>} A promise containing the added page layout data.
- * @throws Will throw an error if there's an issue while saving the data.
- */
-export async function addPage(data: PageLayoutData) {
+export const addPage = async (req: Request, res: Response) => {
+  const layoutData = req.body as PageLayoutData;
   try {
     const db = Database.db;
     const collection = db?.collection("Page");
-    const result = await collection?.insertOne(data);
+    const result = await collection?.insertOne(layoutData);
     if (result) {
-      return data;
+      res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: "Page added successfully",
+        data: layoutData,
+      });
     } else {
-      throw new Error("Failed to add layout");
+      res.status(HttpStatusCodes.NOT_FOUND).json({error: "Layout not found"});
     }
   } catch (error) {
-    throw new Error("An error occurred while saving data");
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};
 
-/**
- * Retrieves pages based on the provided appKey.
- * @param {string} appKey - The appKey used to retrieve the pages.
- * @return {Promise<Array<Object>>} A promise containing an array of retrieved pages.
- * @throws Will throw an error if there's an issue while processing the request.
- */
-export async function getPagesByAppKey(appKey: string) {
+export const getPagesByAppKey = async (req: Request, res: Response) => {
   try {
+    const appKey = req.params.appKey;
     const db = Database.db;
     const collection = db?.collection("Page");
 
     const pages = await collection?.find({appKey}).toArray();
 
     if (pages) {
-      return pages.map((page) => {
+      const appPages = pages.map((page) => {
         return {
           ...page,
           id: page._id,
         };
       });
+
+      res.status(200).json({
+        message: "Get pages successfully",
+        data: appPages,
+      });
     } else {
-      throw new Error("Setting not found");
+      res.status(HttpStatusCodes.NOT_FOUND).json({error: "Layout not found"});
     }
   } catch (error) {
-    throw new Error("An error occurred while processing the request");
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};

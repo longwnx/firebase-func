@@ -1,11 +1,13 @@
-/* eslint-disable require-jsdoc */
 import axios from "axios";
+import {Request, Response} from "express";
 import {WooCommerceProduct} from "../models/Product";
 import {convertListProduct, convertProduct} from "../utils/function";
+import HttpStatusCodes from "../constants/HttpStatusCodes";
 
-export async function getProductID(id: number) {
+export const getProductID = async (req: Request, res: Response) => {
   try {
-    const products = await axios.get(
+    const id = req?.query?.productId as unknown as number;
+    const {data} = await axios.get(
       `${process.env.URL}/wp-json/wc/v3/products/${id}`,
       {
         params: {
@@ -16,23 +18,26 @@ export async function getProductID(id: number) {
       },
     );
 
-    if (products.data) {
-      const listProduct = products.data as WooCommerceProduct;
-      return convertProduct(listProduct);
+    if (data) {
+      const listProduct = data as WooCommerceProduct;
+      res
+        .status(HttpStatusCodes.OK)
+        .json({message: "Success!", data: convertProduct(listProduct)});
     } else {
-      throw new Error("Setting not found");
+      res.status(HttpStatusCodes.NOT_FOUND).json({message: "Khong có data"});
     }
-  } catch (error) {
-    throw new Error("An error occurred while processing the request");
+  } catch (error: any) {
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};
 
-export async function getListProduct(
-  ids?: number[],
-  pageNumber?: number,
-  pageSize?: number,
-) {
+export const getListProduct = async (req: Request, res: Response) => {
   try {
+    const ids = req?.query?.ids as unknown as number[];
+    const pageNumber = req.query.pageNumber as unknown as number;
+    const pageSize = req.query.pageSize as unknown as number;
     const products = await axios.get(
       `${process.env.URL}/wp-json/wc/v3/products`,
       {
@@ -49,15 +54,23 @@ export async function getListProduct(
 
     if (products.data) {
       const listProduct = products.data as WooCommerceProduct[];
-      return {
-        appKey: null,
-        query: null,
-        products: convertListProduct(listProduct),
-      };
+      res.status(HttpStatusCodes.OK).json({
+        message: "Get list products success!",
+        data:
+          {
+            appKey: null,
+            query: null,
+            products: convertListProduct(listProduct),
+          } || [],
+      });
     } else {
-      throw new Error("Setting not found");
+      res
+        .status(HttpStatusCodes.NOT_FOUND)
+        .json({message: "Setting not found"});
     }
   } catch (error) {
-    throw new Error("An error occurred while processing the request");
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
   }
-}
+};
