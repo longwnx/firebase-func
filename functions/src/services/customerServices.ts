@@ -98,8 +98,11 @@ export async function customerLogin(phone: string) {
               },
             },
           );
+
           if (data) {
-            return {woocommerceUser: convertCustomerUser(data)};
+            return {
+              woocommerceUser: convertCustomerUser(data, result?.phone),
+            };
           } else {
             throw new Error("Người dùng không tồn tại");
           }

@@ -129,14 +129,14 @@ export const convertReviewSummary = (reviews: ReviewProduct[], id: number) => {
   };
 };
 
-export const convertCustomerUser = (user: WoocommerceUser) => {
+export const convertCustomerUser = (user: WoocommerceUser, phone: string) => {
   return {
     id: user.id,
     company: "",
     firstName: user.first_name,
     lastName: user.last_name,
     email: user.email,
-    phone: user.billing.phone,
+    phone: phone,
     storeCredit: "",
     customerGroupId: "",
     notes: "",

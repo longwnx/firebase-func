@@ -1,6 +1,11 @@
 import {Db, MongoClient} from "mongodb";
+import dotenv from "dotenv";
 
-const url = "your-mongodb-url";
+const result2 = dotenv.config();
+if (result2.error) {
+  throw result2.error;
+}
+const url = `${process.env.MONGODB_URL}`;
 const options = {}; // Add your options here
 
 /**
@@ -39,7 +44,7 @@ class Database {
       console.log("Connected to MongoDB!");
       this.db = this.client.db();
     } catch (error) {
-      throw new Error(`Error connecting to MongoDB: ${error}`);
+      console.error(`Error connecting to MongoDB: ${error}`);
     }
   }
 }
