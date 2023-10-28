@@ -17,7 +17,7 @@ const router = express.Router();
 
 router.get("/list", getListOrder);
 router.get("/get/:id", getDetailOrder);
-router.get("/create/:id", handleCreateOrderRequest);
+router.post("/create", handleCreateOrderRequest);
 router.get("/carts", handleGetCartRequest);
 router.post("/carts/create", handleAddItemCartRequest);
 router.put("/carts/:cartId/items", handleUpdateCartRequest);
