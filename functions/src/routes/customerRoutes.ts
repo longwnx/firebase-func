@@ -2,10 +2,11 @@ import express, {Request, Response} from "express";
 import {
   customerLogin,
   handleGetAddressListRequest,
+  handleGetCurrentUser,
   handleUpdateAddress,
   registerCustomer,
 } from "../services/customerServices";
-import {formRegister} from "../types/user";
+import {formRegister} from "../types/user"; // eslint-disable-next-line new-cap
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -23,7 +24,7 @@ router.post("/register", async (req: Request, res: Response) => {
 });
 
 router.post("/login", customerLogin);
-router.get("/getCurrent", customerLogin);
+router.get("/getCurrent", handleGetCurrentUser);
 
 router.get("/address/list/:id", handleGetAddressListRequest);
 router.put("/address/edit/:id", handleUpdateAddress);

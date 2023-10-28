@@ -129,6 +129,55 @@ export async function customerLogin(req: Request, res: Response) {
   }
 }
 
+export async function handleGetCurrentUser(req: Request, res: Response) {
+  try {
+    const phone = req.query.phone as string;
+    const db = Database.db;
+    const collection = db?.collection("User");
+    if (collection) {
+      const result = (await collection.findOne({phone})) as userData;
+      if (result) {
+        const id = result.woocommerceId;
+        try {
+          const {data} = await axios.get(
+            `${process.env.URL}/wp-json/wc/v3/customers/${id}`,
+            {
+              params: {
+                consumer_key: process.env.CONSUMER_KEY,
+                consumer_secret: process.env.CONSUMER_SECRET,
+              },
+            },
+          );
+
+          if (data) {
+            res.status(HttpStatusCodes.OK).json({
+              message: "Success!",
+              data: {
+                woocommerceUser: convertCustomerUser(data, result?.phone || ""),
+              },
+            });
+          } else {
+            res
+              .status(HttpStatusCodes.NOT_FOUND)
+              .json({message: "Người dùng không tồn tại"});
+          }
+        } catch (error: any) {
+          res
+            .status(HttpStatusCodes.NOT_FOUND)
+            .json({message: error?.response?.data?.message?.toString()});
+        }
+      }
+    }
+    res
+      .status(HttpStatusCodes.NOT_FOUND)
+      .json({message: "Không kết nối được đến cơ sở dữ liệu"});
+  } catch (error: any) {
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: error?.toString()});
+  }
+}
+
 export const handleGetAddressListRequest = async (
   req: Request,
   res: Response,
