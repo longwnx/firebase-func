@@ -84,7 +84,7 @@ export interface WooCommerceProduct {
     options: string[];
   }[];
   default_attributes: never[];
-  variations: never[];
+  variations: number[];
   grouped_products: never[];
   menu_order: number;
   meta_data: never[];

@@ -92,8 +92,10 @@ export const convertProduct = (product: WooCommerceProduct) => {
       showOutOfStockMessage: true,
       defaultOutOfStockMessage: "\bSold out",
     },
-    attributes: product?.attributes || null,
+    // attributes: product?.attributes || null,
     related_ids: product.related_ids,
+    productAttributes: product.attributes || null,
+    variations: product.variations || [],
   };
 };
 
