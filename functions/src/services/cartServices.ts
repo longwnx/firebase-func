@@ -34,7 +34,9 @@ export const handleGetCartRequest = async (req: Request, res: Response) => {
           ...result,
           grandTotal: result.lineItems.reduce(
             (acc: any, item: any) =>
-              acc + parseFloat(item.salePrice) * item.quantity,
+              acc +
+              parseFloat(item.variantId ? item.listPrice : item.salePrice) *
+                item.quantity,
             0,
           ),
         },
@@ -98,7 +100,11 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
                 ...data,
                 grandTotal: data.lineItems.reduce(
                   (acc: any, item: any) =>
-                    acc + parseFloat(item.salePrice) * item.quantity,
+                    acc +
+                    parseFloat(
+                      item.variantId ? item.listPrice : item.salePrice,
+                    ) *
+                      item.quantity,
                   0,
                 ),
               },
@@ -193,7 +199,9 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
               ...result,
               grandTotal: result.lineItems.reduce(
                 (acc: any, item: any) =>
-                  acc + parseFloat(item.salePrice) * item.quantity,
+                  acc +
+                  parseFloat(item.variantId ? item.listPrice : item.salePrice) *
+                    item.quantity,
                 0,
               ),
             },
@@ -250,7 +258,9 @@ export const handleDeleteCartItemRequest = async (
           ...result,
           grandTotal: result.lineItems.reduce(
             (acc: any, item: any) =>
-              acc + parseFloat(item.salePrice) * item.quantity,
+              acc +
+              parseFloat(item?.salePrice || item.price || item.listPrice) *
+                item.quantity,
             0,
           ),
         },
@@ -299,7 +309,9 @@ export const handleCustomerCartRequest = async (
           ...result,
           grandTotal: result.lineItems.reduce(
             (acc: any, item: any) =>
-              acc + parseFloat(item.salePrice) * item.quantity,
+              acc +
+              parseFloat(item.variantId ? item.listPrice : item.salePrice) *
+                item.quantity,
             0,
           ),
         },
@@ -351,7 +363,9 @@ export const handleUpdateQuantityRequest = async (
           ...result,
           grandTotal: result.lineItems.reduce(
             (acc: any, item: any) =>
-              acc + parseFloat(item.salePrice) * item.quantity,
+              acc +
+              parseFloat(item.variantId ? item.listPrice : item.salePrice) *
+                item.quantity,
             0,
           ),
         },
