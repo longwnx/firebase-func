@@ -279,7 +279,7 @@ export const handleDeleteCartItemRequest = async (
         .json({error: "Invalid request, JM360_DEVICE_KEY is missing"});
     }
     const update: UpdateFilter<Document> = {
-      $pull: {lineItems: {id: Number(itemId)}},
+      $pull: {lineItems: {id: itemId}},
     };
     const result = await collection.findOneAndUpdate(
       {_id: new ObjectId(cartId)},
@@ -384,7 +384,7 @@ export const handleUpdateQuantityRequest = async (
     const result = await collection.findOneAndUpdate(
       {
         "_id": new ObjectId(cartId),
-        "lineItems.id": Number(itemId),
+        "lineItems.id": itemId,
       },
       {
         $set: {"lineItems.$.quantity": quantity},
