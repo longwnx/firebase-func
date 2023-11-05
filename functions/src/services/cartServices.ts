@@ -5,6 +5,7 @@ import {Collection, ObjectId, UpdateFilter} from "mongodb";
 import axios from "axios";
 import {convertCartItemProduct} from "../utils/function";
 import {Variants, WooCommerceProduct} from "../models/Product";
+import {randomUUID} from "crypto";
 
 export const handleGetCartRequest = async (req: Request, res: Response) => {
   try {
@@ -95,6 +96,7 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
         const variantOption = variants.data?.attributes as Variants[];
         const itemsProduct = [
           {
+            id: randomUUID(),
             ...lineItems[0],
             ...convertCartItemProduct(product.data, variantOption),
           },
@@ -195,6 +197,7 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
         const variantOption = variants.data?.attributes as Variants[];
         const itemsProduct = [
           {
+            id: randomUUID(),
             ...lineItems[0],
             ...convertCartItemProduct(product.data, variantOption),
           },
