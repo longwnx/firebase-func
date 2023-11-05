@@ -191,7 +191,6 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
           headers: {},
         },
       )) as { data: WooCommerceProduct };
-
       if (product && variants) {
         const variantOption = variants.data?.attributes as Variants[];
         const itemsProduct = [
@@ -203,6 +202,7 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
         const existingProduct = await collection.findOne({
           "_id": new ObjectId(cartId),
           "lineItems.productId": lineItems[0].productId,
+          "lineItems.variantId": lineItems[0].variantId,
         });
 
         let result;
@@ -212,6 +212,7 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
             {
               "_id": new ObjectId(cartId),
               "lineItems.productId": lineItems[0].productId,
+              "lineItems.variantId": lineItems[0].variantId,
             },
             {$inc: {"lineItems.$.quantity": lineItems[0].quantity}},
             {returnDocument: "after"},
