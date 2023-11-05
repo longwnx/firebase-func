@@ -4,7 +4,7 @@ import HttpStatusCodes from "../constants/HttpStatusCodes";
 import {Collection, ObjectId, UpdateFilter} from "mongodb";
 import axios from "axios";
 import {convertCartItemProduct} from "../utils/function";
-import {WooCommerceProduct} from "../models/Product";
+import {Variants, WooCommerceProduct} from "../models/Product";
 
 export const handleGetCartRequest = async (req: Request, res: Response) => {
   try {
@@ -66,6 +66,7 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
     }
 
     const productId = lineItems[0].productId;
+    const variantId = lineItems[0].variantId;
 
     try {
       const product = (await axios.get(
@@ -78,9 +79,25 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
           headers: {},
         },
       )) as { data: WooCommerceProduct };
-      if (product) {
+
+      const variants = (await axios.get(
+        `${process.env.URL}/wp-json/wc/v3/products/${productId}/variations/${variantId}`,
+        {
+          params: {
+            consumer_key: process.env.CONSUMER_KEY,
+            consumer_secret: process.env.CONSUMER_SECRET,
+          },
+          headers: {},
+        },
+      )) as { data: WooCommerceProduct };
+
+      if (product && variants) {
+        const variantOption = variants.data?.attributes as Variants[];
         const itemsProduct = [
-          {...lineItems[0], ...convertCartItemProduct(product.data)},
+          {
+            ...lineItems[0],
+            ...convertCartItemProduct(product.data, variantOption),
+          },
         ];
 
         const result = await collection.insertOne({
@@ -150,6 +167,7 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
     }
 
     const productId = lineItems[0].productId;
+    const variantId = lineItems[0].variantId;
 
     try {
       const product = (await axios.get(
@@ -163,9 +181,24 @@ export const handleUpdateCartRequest = async (req: Request, res: Response) => {
         },
       )) as { data: WooCommerceProduct };
 
-      if (product) {
+      const variants = (await axios.get(
+        `${process.env.URL}/wp-json/wc/v3/products/${productId}/variations/${variantId}`,
+        {
+          params: {
+            consumer_key: process.env.CONSUMER_KEY,
+            consumer_secret: process.env.CONSUMER_SECRET,
+          },
+          headers: {},
+        },
+      )) as { data: WooCommerceProduct };
+
+      if (product && variants) {
+        const variantOption = variants.data?.attributes as Variants[];
         const itemsProduct = [
-          {...lineItems[0], ...convertCartItemProduct(product.data)},
+          {
+            ...lineItems[0],
+            ...convertCartItemProduct(product.data, variantOption),
+          },
         ];
         const existingProduct = await collection.findOne({
           "_id": new ObjectId(cartId),

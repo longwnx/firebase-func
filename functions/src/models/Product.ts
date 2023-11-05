@@ -75,14 +75,16 @@ export interface WooCommerceProduct {
     name: string;
     alt: string;
   }[];
-  attributes: {
-    id: number;
-    name: string;
-    position: number;
-    visible: boolean;
-    variation: boolean;
-    options: string[];
-  }[];
+  attributes:
+    | {
+        id: number;
+        name: string;
+        position: number;
+        visible: boolean;
+        variation: boolean;
+        options: string[];
+      }[]
+    | Variants[];
   default_attributes: never[];
   variations: number[];
   grouped_products: never[];
@@ -96,4 +98,10 @@ export interface WooCommerceProduct {
       href: string;
     }[];
   };
+}
+
+export interface Variants {
+  id: number;
+  name: string;
+  option: string;
 }

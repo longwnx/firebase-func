@@ -1,4 +1,4 @@
-import {WooCommerceProduct} from "../models/Product";
+import {Variants, WooCommerceProduct} from "../models/Product";
 import {ReviewProduct} from "../models/Review";
 import {Order} from "../models/Order";
 import {WoocommerceUser} from "../types/user";
@@ -271,7 +271,10 @@ export const convertOrderDetail = (item: Order) => {
   };
 };
 
-export const convertCartItemProduct = (product: WooCommerceProduct) => {
+export const convertCartItemProduct = (
+  product: WooCommerceProduct,
+  variants: Variants[],
+) => {
   return {
     productId: product.id,
     sku: product.sku,
@@ -286,7 +289,7 @@ export const convertCartItemProduct = (product: WooCommerceProduct) => {
     salePrice: product.sale_price,
     extendedListPrice: product.price,
     extendedSalePrice: product.sale_price,
-    options: [],
+    options: variants,
     brandName: null,
     taxClassId: 0,
     hasError: false,
