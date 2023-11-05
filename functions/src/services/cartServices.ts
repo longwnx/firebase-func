@@ -270,7 +270,7 @@ export const handleDeleteCartItemRequest = async (
   try {
     const db = Database.db;
     const collection: Collection = db?.collection("Cart") as Collection;
-    const {cartId, productId} = req.params;
+    const {cartId, itemId} = req.params;
     const JM360_DEVICE_KEY = req.headers.jm360_device_key;
 
     if (!JM360_DEVICE_KEY) {
@@ -279,7 +279,7 @@ export const handleDeleteCartItemRequest = async (
         .json({error: "Invalid request, JM360_DEVICE_KEY is missing"});
     }
     const update: UpdateFilter<Document> = {
-      $pull: {lineItems: {productId: Number(productId)}},
+      $pull: {lineItems: {id: Number(itemId)}},
     };
     const result = await collection.findOneAndUpdate(
       {_id: new ObjectId(cartId)},
@@ -372,10 +372,10 @@ export const handleUpdateQuantityRequest = async (
   try {
     const db = Database.db;
     const collection: Collection = db?.collection("Cart") as Collection;
-    const {productId, quantity} = req.body;
+    const {itemId, quantity} = req.body;
     const cartId = req.params.cartId as string;
 
-    if (!productId || !quantity || isNaN(quantity)) {
+    if (!itemId || !quantity || isNaN(quantity)) {
       return res.status(HttpStatusCodes.BAD_REQUEST).json({
         error: "Invalid request, productId and quantity are required",
       });
@@ -384,7 +384,7 @@ export const handleUpdateQuantityRequest = async (
     const result = await collection.findOneAndUpdate(
       {
         "_id": new ObjectId(cartId),
-        "lineItems.productId": Number(productId),
+        "lineItems.id": Number(itemId),
       },
       {
         $set: {"lineItems.$.quantity": quantity},
