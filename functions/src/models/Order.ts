@@ -25,6 +25,7 @@ interface Shipping {
 }
 
 interface MetaData {
+  display_key?: string;
   id: number;
   key: string;
   value: string;
@@ -37,6 +38,7 @@ interface Tax {
 }
 
 interface LineItem {
+  image: { src: string };
   id: number;
   name: string;
   product_id: number;
