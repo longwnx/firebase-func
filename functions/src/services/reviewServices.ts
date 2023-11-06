@@ -93,17 +93,17 @@ export const createProductReview = async (req: Request, res: Response) => {
         headers: {},
       },
     );
-    if (data) {
-      const review = productReviews as unknown as ReviewProduct;
+    if (productReviews.status === HttpStatusCodes.CREATED) {
+      const review = productReviews.data as unknown as ReviewProduct;
       res
-        .status(HttpStatusCodes.OK)
+        .status(HttpStatusCodes.CREATED)
         .json({message: "Success!", data: review});
     } else {
-      res.status(HttpStatusCodes.NOT_FOUND).json({message: "Tạo thất bại"});
+      res.status(productReviews.status).json({message: "Tạo thất bại"});
     }
-  } catch (error) {
+  } catch (error: any) {
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
-      .json({message: error?.toString()});
+      .json({message: error.response.data.message?.toString()});
   }
 };
