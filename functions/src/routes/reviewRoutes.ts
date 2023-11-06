@@ -1,5 +1,6 @@
 import express, {Request, Response} from "express";
 import {
+  createProductReview,
   getProductReview,
   getProductTop3Review,
   getReviewSummary,
@@ -43,4 +44,6 @@ router.get("/summary", async (req: Request, res: Response) => {
     });
   }
 });
+
+router.post("/create", createProductReview);
 export default router;
