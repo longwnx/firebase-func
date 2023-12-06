@@ -1,0 +1,1492 @@
+{
+    "success": {
+        "message": "ok"
+    },
+    "data": [
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": [
+                {
+                    "blocks": [
+                        {
+                            "type": "gallery",
+                            "editable": true,
+                            "id": "65261984d81214248c1cab88"
+                        },
+                        {
+                            "type": "information",
+                            "title": {
+                                "text": "Product information"
+                            },
+                            "editable": true,
+                            "id": "65261984d81214248c1cab89"
+                        },
+                        {
+                            "type": "variants",
+                            "options": {
+                                "presentationStyle": "modal"
+                            },
+                            "title": {
+                                "text": "Select Variant"
+                            },
+                            "editable": true,
+                            "id": "65261984d81214248c1cab8a"
+                        },
+                        {
+                            "type": "description",
+                            "options": {
+                                "presentationStyle": "accordion",
+                                "collapsed": false
+                            },
+                            "title": {
+                                "text": "Description",
+                                "textColor": "#22252D"
+                            },
+                            "editable": true,
+                            "backgroundColor": "#ffffff",
+                            "id": "65261984d81214248c1cab8b"
+                        },
+                        {
+                            "type": "reviews",
+                            "options": {
+                                "presentationStyle": "accordion",
+                                "collapsed": false
+                            },
+                            "editable": true,
+                            "id": "65261984d81214248c1cab8c"
+                        },
+                        {
+                            "type": "relatedProducts",
+                            "options": {},
+                            "action": {},
+                            "title": {
+                                "text": "Related Products",
+                                "textColor": "#22252D"
+                            },
+                            "editable": true,
+                            "id": "65261984d81214248c1cab8d"
+                        },
+                        {
+                            "type": "customFields",
+                            "options": {
+                                "presentationStyle": "accordion",
+                                "collapsed": false
+                            },
+                            "fields": [],
+                            "title": {
+                                "text": "Custom Fields",
+                                "textColor": "#22252D"
+                            },
+                            "backgroundColor": "#ffffff",
+                            "id": "65261984d81214248c1cab8e"
+                        },
+                        {
+                            "editable": true,
+                            "options": {
+                                "presentationStyle": "accordion",
+                                "collapsed": false
+                            },
+                            "type": "mpn",
+                            "title": {
+                                "text": "Manufacturer Part Number",
+                                "textColor": "#22252D"
+                            }
+                        },
+                        {
+                            "editable": true,
+                            "options": {
+                                "presentationStyle": "accordion",
+                                "collapsed": false
+                            },
+                            "type": "gtin",
+                            "title": {
+                                "text": "Global Trade Item Number",
+                                "textColor": "#22252D"
+                            }
+                        },
+                        {
+                            "editable": true,
+                            "options": {
+                                "presentationStyle": "accordion",
+                                "collapsed": false
+                            },
+                            "type": "warranty",
+                            "title": {
+                                "text": "Warranty Information",
+                                "textColor": "#22252D"
+                            }
+                        },
+                        {
+                            "editable": true,
+                            "options": {
+                                "presentationStyle": "accordion",
+                                "collapsed": false
+                            },
+                            "type": "availabilityDescription",
+                            "title": {
+                                "text": "Availability Text",
+                                "textColor": "#22252D"
+                            }
+                        }
+                    ],
+                    "backgroundColor": "#ffffff",
+                    "id": "65261984d81214248c1cab87"
+                }
+            ],
+            "title": {
+                "text": "Product Detail",
+                "visible": true
+            },
+            "type": "product",
+            "options": null,
+            "id": "65261984d81214248c1cab71"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Product List",
+                "visible": false
+            },
+            "type": "productList",
+            "options": null,
+            "id": "65261984d81214248c1cab72"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Shopping Cart",
+                "visible": true
+            },
+            "type": "cart",
+            "options": null,
+            "id": "65261984d81214248c1cab73"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Notifications",
+                "visible": true
+            },
+            "type": "notifications",
+            "options": null,
+            "id": "65261984d81214248c1cab74"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Orders List",
+                "visible": true
+            },
+            "type": "orders",
+            "options": null,
+            "id": "65261984d81214248c1cab75"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Search",
+                "visible": true
+            },
+            "type": "search",
+            "options": null,
+            "id": "65261984d81214248c1cab76"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Sign In",
+                "visible": true
+            },
+            "type": "signIn",
+            "options": null,
+            "id": "65261984d81214248c1cab77"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": [
+                {
+                    "backgroundColor": "#ffffff",
+                    "blocks": [
+                        {
+                            "action": {
+                                "page": {
+                                    "id": "65261984d81214248c1cab78",
+                                    "type": "signUp"
+                                },
+                                "target": "bigcommerce-user/v1/signup-form",
+                                "type": "submit"
+                            },
+                            "backgroundColor": "#FFFFFF",
+                            "editable": false,
+                            "fields": [
+                                {
+                                    "code": "email-address",
+                                    "defaultValue": null,
+                                    "displayName": "Email Address",
+                                    "id": "3870ba28-6cc2-46fe-abf4-c72debcd6f6d",
+                                    "maxLength": 0,
+                                    "name": "Email Address",
+                                    "required": true,
+                                    "sequence": 1,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "password",
+                                    "defaultValue": null,
+                                    "displayName": "Password",
+                                    "id": "59f41ef6-0c75-40f1-95f5-86a01d447728",
+                                    "maxLength": 0,
+                                    "name": "Password",
+                                    "required": true,
+                                    "sequence": 2,
+                                    "type": "password",
+                                    "value": null
+                                },
+                                {
+                                    "code": "confirm-password",
+                                    "defaultValue": null,
+                                    "displayName": "Confirm Password",
+                                    "id": "12e3eea9-acac-4b46-9b27-924d118eed04",
+                                    "maxLength": 0,
+                                    "name": "Confirm Password",
+                                    "required": true,
+                                    "sequence": 3,
+                                    "type": "password",
+                                    "value": null
+                                },
+                                {
+                                    "code": "first-name",
+                                    "defaultValue": null,
+                                    "displayName": "First Name",
+                                    "id": "ff2d45d5-5114-4f5b-b034-9fbb057568a9",
+                                    "maxLength": 0,
+                                    "name": "First Name",
+                                    "required": true,
+                                    "sequence": 4,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "last-name",
+                                    "defaultValue": null,
+                                    "displayName": "Last Name",
+                                    "id": "158bc1f5-b3b5-4afa-8a4b-f97163e079e6",
+                                    "maxLength": 0,
+                                    "name": "Last Name",
+                                    "required": true,
+                                    "sequence": 5,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "phone-number",
+                                    "defaultValue": null,
+                                    "displayName": "Phone Number",
+                                    "id": "0faced11-2dfc-4705-b24d-0a751dd4625f",
+                                    "maxLength": 0,
+                                    "name": "Phone Number",
+                                    "required": true,
+                                    "sequence": 6,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "company-name",
+                                    "defaultValue": null,
+                                    "displayName": "Company Name",
+                                    "id": "29232799-04bf-4a63-972c-0a84e267e4ba",
+                                    "maxLength": 0,
+                                    "name": "Company Name",
+                                    "required": false,
+                                    "sequence": 7,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "address-1",
+                                    "defaultValue": null,
+                                    "displayName": "Address",
+                                    "id": "0685ef0b-c385-49ab-93c9-f8c6e7a316d3",
+                                    "maxLength": 0,
+                                    "name": "Address Line 1",
+                                    "required": true,
+                                    "sequence": 8,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "address-2",
+                                    "defaultValue": null,
+                                    "displayName": "Address 2",
+                                    "id": "a7fe304a-5707-4bc9-a05a-40fc2261e6ed",
+                                    "maxLength": 0,
+                                    "name": "Address Line 2",
+                                    "required": false,
+                                    "sequence": 9,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "country",
+                                    "defaultValue": null,
+                                    "displayName": "Country",
+                                    "id": "4d3b5da5-1446-47f7-bc3a-9b8e25b906ab",
+                                    "maxLength": 0,
+                                    "name": "Country",
+                                    "required": true,
+                                    "sequence": 10,
+                                    "type": "country-list",
+                                    "value": null
+                                },
+                                {
+                                    "code": "state-province",
+                                    "defaultValue": null,
+                                    "displayName": "State",
+                                    "id": "7733473e-ba17-45ad-a060-5416fec57ea7",
+                                    "maxLength": 0,
+                                    "name": "State/Province",
+                                    "required": true,
+                                    "sequence": 11,
+                                    "type": "state-list",
+                                    "value": null
+                                },
+                                {
+                                    "code": "suburb-city",
+                                    "defaultValue": null,
+                                    "displayName": "City",
+                                    "id": "1e4e09a2-6160-4a05-871e-c842703bcb67",
+                                    "maxLength": 0,
+                                    "name": "Suburb/City",
+                                    "required": true,
+                                    "sequence": 12,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "zip-postcode",
+                                    "defaultValue": null,
+                                    "displayName": "Postcode",
+                                    "id": "3e7fd440-341a-41d7-8d17-741b8223d016",
+                                    "maxLength": 0,
+                                    "name": "Zip/Postcode",
+                                    "required": true,
+                                    "sequence": 13,
+                                    "type": "text-field",
+                                    "value": null
+                                }
+                            ],
+                            "id": "65261984d81214248c1cab90",
+                            "title": {
+                                "text": "Sign Up",
+                                "visible": false
+                            },
+                            "type": "form"
+                        }
+                    ],
+                    "id": "65261984d81214248c1cab8f"
+                }
+            ],
+            "title": {
+                "text": "Sign Up",
+                "visible": false
+            },
+            "type": "signUp",
+            "options": null,
+            "id": "65261984d81214248c1cab78"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Wishlist",
+                "visible": true
+            },
+            "type": "wishlist",
+            "options": null,
+            "id": "65261984d81214248c1cab79"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Address Book",
+                "visible": true
+            },
+            "type": "address",
+            "options": null,
+            "id": "65261984d81214248c1cab7a"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Info page",
+                "visible": true
+            },
+            "type": "info",
+            "options": null,
+            "id": "65261984d81214248c1cab7b"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "LookBook",
+                "visible": true
+            },
+            "type": "lookBook",
+            "options": null,
+            "id": "65261984d81214248c1cab7c"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Locations",
+                "visible": true
+            },
+            "type": "location",
+            "options": null,
+            "id": "65261984d81214248c1cab7d"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Recently Viewed",
+                "visible": true
+            },
+            "type": "recentlyViewed",
+            "options": null,
+            "id": "65261984d81214248c1cab80"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Profile",
+                "visible": true
+            },
+            "type": "myProfile",
+            "options": null,
+            "id": "65261984d81214248c1cab81"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Settings",
+                "visible": true
+            },
+            "type": "settings",
+            "options": null,
+            "id": "65261984d81214248c1cab82"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "text": "Customer Enquiry",
+                "visible": true
+            },
+            "type": "customerEnquiry",
+            "options": null,
+            "id": "65261984d81214248c1cab83"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": [
+                {
+                    "backgroundColor": "#ffffff",
+                    "blocks": [
+                        {
+                            "action": {
+                                "page": {
+                                    "id": "65261984d81214248c1cab85",
+                                    "type": "addressForm"
+                                },
+                                "target": "bigcommerce-user/v1/address/edit/%s",
+                                "type": "submit"
+                            },
+                            "backgroundColor": "#FFFFFF",
+                            "editable": false,
+                            "fields": [
+                                {
+                                    "code": "first-name",
+                                    "defaultValue": null,
+                                    "displayName": "First Name",
+                                    "id": "f099f9f2-dfab-45aa-bce6-dc69e7cf42f9",
+                                    "maxLength": 0,
+                                    "name": "First Name",
+                                    "required": true,
+                                    "sequence": 1,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "last-name",
+                                    "defaultValue": null,
+                                    "displayName": "Last Name",
+                                    "id": "46ab8556-dc5c-4199-930b-0200f4f1af40",
+                                    "maxLength": 0,
+                                    "name": "Last Name",
+                                    "required": true,
+                                    "sequence": 2,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "phone-number",
+                                    "defaultValue": null,
+                                    "displayName": "Phone Number",
+                                    "id": "28b8cf40-3394-4cd1-9eb8-a2e1060122f4",
+                                    "maxLength": 0,
+                                    "name": "Phone Number",
+                                    "required": true,
+                                    "sequence": 6,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "company-name",
+                                    "defaultValue": null,
+                                    "displayName": "Company Name",
+                                    "id": "7b29f138-9c70-4363-bf30-e1b137deae83",
+                                    "maxLength": 0,
+                                    "name": "Company Name",
+                                    "required": false,
+                                    "sequence": 7,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "address-1",
+                                    "defaultValue": null,
+                                    "displayName": "Address",
+                                    "id": "17c9c917-9cd4-4d49-9686-9153136681a7",
+                                    "maxLength": 0,
+                                    "name": "Address Line 1",
+                                    "required": true,
+                                    "sequence": 8,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "address-2",
+                                    "defaultValue": null,
+                                    "displayName": "Address 2",
+                                    "id": "cdee29e3-0f20-447d-950b-d80fafd0bdcc",
+                                    "maxLength": 0,
+                                    "name": "Address Line 2",
+                                    "required": false,
+                                    "sequence": 9,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "country",
+                                    "defaultValue": null,
+                                    "displayName": "Country",
+                                    "id": "28d3b038-0063-4a28-b956-05069d32199a",
+                                    "maxLength": 0,
+                                    "name": "Country",
+                                    "required": true,
+                                    "sequence": 10,
+                                    "type": "country-list",
+                                    "value": null
+                                },
+                                {
+                                    "code": "state-province",
+                                    "defaultValue": null,
+                                    "displayName": "State",
+                                    "id": "aba4c0e0-f90b-436e-93d7-f3bb19752c74",
+                                    "maxLength": 0,
+                                    "name": "State/Province",
+                                    "required": true,
+                                    "sequence": 11,
+                                    "type": "state-list",
+                                    "value": null
+                                },
+                                {
+                                    "code": "suburb-city",
+                                    "defaultValue": null,
+                                    "displayName": "City",
+                                    "id": "bc9ee823-d508-49b6-90fc-d480d3fe5283",
+                                    "maxLength": 0,
+                                    "name": "Suburb/City",
+                                    "required": true,
+                                    "sequence": 12,
+                                    "type": "text-field",
+                                    "value": null
+                                },
+                                {
+                                    "code": "zip-postcode",
+                                    "defaultValue": null,
+                                    "displayName": "Postcode",
+                                    "id": "07e820a4-69a2-42b3-b0c4-b4a9b7e7e255",
+                                    "maxLength": 0,
+                                    "name": "Zip/Postcode",
+                                    "required": true,
+                                    "sequence": 13,
+                                    "type": "text-field",
+                                    "value": null
+                                }
+                            ],
+                            "id": "65261984d81214248c1cab9d",
+                            "title": {
+                                "text": "New Address",
+                                "visible": true
+                            },
+                            "type": "form"
+                        }
+                    ],
+                    "id": "65261984d81214248c1cab9c"
+                }
+            ],
+            "title": {
+                "text": "New Address",
+                "visible": true
+            },
+            "type": "addressForm",
+            "options": null,
+            "id": "65261984d81214248c1cab85"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": [],
+            "title": {
+                "text": "Custom page 11/10"
+            },
+            "type": "custom",
+            "options": null,
+            "id": "65266955d81214248c1cabb1"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": [
+                {
+                    "backgroundColor": "#ffffff",
+                    "height": 0,
+                    "textAlign": "left",
+                    "isShowCategoriesName": true,
+                    "blocks": [
+                        {
+                            "type": "bannerCategories",
+                            "id": "79949682-ac17-4b29-9339-3b35b724f3b8",
+                            "category": {
+                                "id": 23,
+                                "name": "Shop All",
+                                "visible": true,
+                                "url": null,
+                                "image": {
+                                    "src": "",
+                                    "ratio": 1,
+                                    "visible": false
+                                },
+                                "children": [],
+                                "manufactureCategory": false,
+                                "parentId": 0,
+                                "selected": true,
+                                "visibleName": true
+                            }
+                        },
+                        {
+                            "type": "bannerCategories",
+                            "id": "2ba14dce-3276-4dc6-bf9c-1b1bf933f352",
+                            "category": {
+                                "id": 18,
+                                "name": "Bath",
+                                "visible": true,
+                                "url": null,
+                                "image": {
+                                    "src": "",
+                                    "ratio": 1,
+                                    "visible": false
+                                },
+                                "children": [],
+                                "manufactureCategory": false,
+                                "parentId": 0,
+                                "selected": true,
+                                "visibleName": true
+                            }
+                        },
+                        {
+                            "type": "bannerCategories",
+                            "id": "0585d8a6-8b82-4308-8e64-baa5fa761491",
+                            "category": {
+                                "id": 19,
+                                "name": "Garden",
+                                "visible": true,
+                                "url": null,
+                                "image": {
+                                    "src": "",
+                                    "ratio": 1,
+                                    "visible": false
+                                },
+                                "children": [],
+                                "manufactureCategory": false,
+                                "parentId": 0,
+                                "selected": true,
+                                "visibleName": true
+                            }
+                        }
+                    ],
+                    "id": "65261984d81214248c1cab91"
+                }
+            ],
+            "title": {
+                "text": "Categories",
+                "visible": true
+            },
+            "type": "categoryTree",
+            "options": null,
+            "id": "65261984d81214248c1cab7e"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": [
+                {
+                    "blocks": [
+                        {
+                            "action": {
+                                "type": "openInAppScreen",
+                                "page": {
+                                    "type": "myProfile",
+                                    "id": "64776883934b224db2993a9f"
+                                },
+                                "editable": false
+                            },
+                            "title": {
+                                "text": "Profile",
+                                "visible": true
+                            },
+                            "editable": true,
+                            "type": "actionButton",
+                            "backgroundColor": "#FFFFFF",
+                            "id": "64776883934b224db2993aa4",
+                            "deleteable": false
+                        },
+                        {
+                            "action": {
+                                "type": "openInAppScreen",
+                                "page": {
+                                    "type": "address",
+                                    "id": "64776883934b224db2993a98"
+                                },
+                                "editable": false
+                            },
+                            "title": {
+                                "text": "Address book",
+                                "visible": true
+                            },
+                            "editable": true,
+                            "type": "actionButton",
+                            "backgroundColor": "#FFFFFF",
+                            "id": "64776883934b224db2993aa5",
+                            "deleteable": false
+                        },
+                        {
+                            "action": {
+                                "type": "openInAppScreen",
+                                "page": {
+                                    "type": "notifications",
+                                    "id": "64776883934b224db2993a92"
+                                },
+                                "editable": false
+                            },
+                            "title": {
+                                "text": "Notifications",
+                                "visible": true
+                            },
+                            "editable": true,
+                            "type": "actionButton",
+                            "backgroundColor": "#FFFFFF",
+                            "id": "64776883934b224db2993aa6",
+                            "deleteable": false
+                        },
+                        {
+                            "action": {
+                                "type": "openInAppScreen",
+                                "page": {
+                                    "type": "orders",
+                                    "id": "64776883934b224db2993a93"
+                                },
+                                "editable": false
+                            },
+                            "title": {
+                                "text": "Orders history",
+                                "visible": true
+                            },
+                            "editable": true,
+                            "type": "actionButton",
+                            "backgroundColor": "#FFFFFF",
+                            "id": "64776883934b224db2993aa7",
+                            "deleteable": false
+                        },
+                        {
+                            "action": {
+                                "type": "openInAppScreen",
+                                "page": {
+                                    "type": "wishlist",
+                                    "id": "64776883934b224db2993a97"
+                                },
+                                "editable": false
+                            },
+                            "title": {
+                                "text": "Wishlist",
+                                "visible": true
+                            },
+                            "editable": true,
+                            "type": "actionButton",
+                            "backgroundColor": "#FFFFFF",
+                            "id": "64776883934b224db2993aa8",
+                            "deleteable": false
+                        },
+                        {
+                            "action": {
+                                "type": "openInAppScreen",
+                                "page": {
+                                    "type": "recentlyViewed",
+                                    "id": "64776883934b224db2993a9e"
+                                },
+                                "editable": false
+                            },
+                            "title": {
+                                "text": "Recently viewed",
+                                "visible": true
+                            },
+                            "editable": true,
+                            "type": "actionButton",
+                            "backgroundColor": "#FFFFFF",
+                            "id": "64776883934b224db2993aa9",
+                            "deleteable": false
+                        },
+                        {
+                            "action": {
+                                "type": "openInAppScreen",
+                                "page": {
+                                    "type": "settings",
+                                    "id": "64776883934b224db2993aa0"
+                                },
+                                "editable": false
+                            },
+                            "title": {
+                                "text": "Settings",
+                                "visible": true
+                            },
+                            "editable": true,
+                            "type": "actionButton",
+                            "backgroundColor": "#FFFFFF",
+                            "id": "64776883934b224db2993aaa",
+                            "deleteable": false
+                        },
+                        {
+                            "action": {
+                                "type": "openInAppScreen",
+                                "page": {
+                                    "type": "info",
+                                    "id": "64776883934b224db2993a9a"
+                                },
+                                "editable": true
+                            },
+                            "title": {
+                                "text": "Help & info",
+                                "visible": true
+                            },
+                            "type": "actionButton",
+                            "backgroundColor": "#FFFFFF",
+                            "id": "64776883934b224db2993aab",
+                            "editable": true,
+                            "deleteable": true
+                        }
+                    ],
+                    "backgroundColor": "#ffffff",
+                    "id": "64776883934b224db2993aa3"
+                }
+            ],
+            "title": {
+                "text": "My Account",
+                "visible": true
+            },
+            "type": "myAccount",
+            "options": null,
+            "id": "65261984d81214248c1cab84"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": null,
+            "title": {
+                "visible": true,
+                "text": "Barcode & QR Scanner"
+            },
+            "type": "scanner",
+            "options": null,
+            "id": "65680e5726cd5538a6eb0485"
+        },
+        {
+            "appKey": "65261983d81214248c1cab6e",
+            "multiplePage": false,
+            "pages": [
+                {
+                    "title": {
+                        "text": "Page 1"
+                    },
+                    "backgroundColor": "#FFFFFF",
+                    "blocks": [
+                        {
+                            "id": "b9c2ca41-39f8-4752-b7ba-3dcd3f1e2e8d",
+                            "action": {
+                                "type": "openCategory",
+                                "url": {
+                                    "url": "",
+                                    "openExternal": true
+                                }
+                            },
+                            "type": "searchBar",
+                            "backgroundColor": "#FFFFFF",
+                            "placeholder": "Search product"
+                        },
+                        {
+                            "id": "adc930c2-c888-4c38-b1ec-5c12387e5d9e",
+                            "action": {
+                                "type": "openCategory",
+                                "url": {
+                                    "url": "",
+                                    "openExternal": true
+                                }
+                            },
+                            "type": "catalogGrid",
+                            "columns": 4,
+                            "backgroundColor": "#FFFFFF",
+                            "categories": [
+                                {
+                                    "id": 20,
+                                    "name": "Nai",
+                                    "image": {
+                                        "src": "https://i.pinimg.com/564x/62/e3/63/62e3630f2b17ac47eb1ae0f00aec87fe.jpg"
+                                    },
+                                    "manufactureCategory": false
+                                },
+                                {
+                                    "id": 18,
+                                    "name": "Das",
+                                    "image": {
+                                        "src": "https://i.pinimg.com/564x/29/ee/79/29ee795e531d900098ae619b448b6271.jpg"
+                                    },
+                                    "manufactureCategory": false
+                                },
+                                {
+                                    "id": 24,
+                                    "name": "Conver",
+                                    "image": {
+                                        "src": "https://i.pinimg.com/564x/17/ad/a8/17ada8571f31e1ceb4e15cf550c35d62.jpg"
+                                    },
+                                    "manufactureCategory": false
+                                },
+                                {
+                                    "id": 21,
+                                    "name": "MB",
+                                    "image": {
+                                        "src": "https://i.pinimg.com/564x/9e/65/5d/9e655d442b25c2b810370064bdeca8af.jpg"
+                                    },
+                                    "manufactureCategory": false
+                                },
+                                {
+                                    "id": 22,
+                                    "name": "SVAN",
+                                    "visible": true,
+                                    "url": null,
+                                    "image": {
+                                        "src": "https://i.pinimg.com/564x/47/48/e9/4748e924dc5495b47b925dbbc44bf212.jpg"
+                                    },
+                                    "children": [],
+                                    "manufactureCategory": false
+                                },
+                                {
+                                    "id": 25,
+                                    "name": "NB",
+                                    "visible": true,
+                                    "url": null,
+                                    "image": {
+                                        "src": "https://i.pinimg.com/564x/ca/cb/97/cacb97592807e546dca1a4e9c754be05.jpg"
+                                    },
+                                    "children": [],
+                                    "manufactureCategory": false
+                                },
+                                {
+                                    "id": 15,
+                                    "name": "ChuaPhanLoai",
+                                    "visible": true,
+                                    "url": null,
+                                    "image": {
+                                        "src": "https://i.pinimg.com/564x/da/15/9e/da159e7be68e67f34f14fda994c5b60e.jpg"
+                                    },
+                                    "children": [],
+                                    "manufactureCategory": false
+                                },
+                                {
+                                    "id": 22,
+                                    "name": "PUM",
+                                    "visible": true,
+                                    "url": null,
+                                    "image": {
+                                        "src": "https://i.pinimg.com/564x/69/89/07/69890774f523c1fa1e3fbf71b50a0a2c.jpg"
+                                    },
+                                    "children": [],
+                                    "manufactureCategory": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": "5113c23b-0fa4-4a06-813f-51489c3c894d",
+                            "action": {
+                                "type": "openCategory",
+                                "url": {
+                                    "url": "",
+                                    "openExternal": true
+                                }
+                            },
+                            "type": "slider",
+                            "backgroundColor": "#FFFFFF",
+                            "images": [
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/znmrjxkpymukq26u1m99cceh/nety5",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/znmrjxkpymukq26u1m99cceh/nety5/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/m7fiqtxp8dm2myk6sy6dykz2/mlb1",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/m7fiqtxp8dm2myk6sy6dykz2/mlb1/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/yix6zch3t1u751zmco16203q/nety7",
+                                    "ratio": 1.0017761989342806,
+                                    "width": 564,
+                                    "height": 563,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/yix6zch3t1u751zmco16203q/nety7/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/nmhnu11w74e6zeavmt7vxrsu/nety6",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/nmhnu11w74e6zeavmt7vxrsu/nety6/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                }
+                            ],
+                            "pagination": {
+                                "visible": true
+                            },
+                            "columns": 4,
+                            "spacing": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 0,
+                                "right": 0,
+                                "inner": 0
+                            }
+                        },
+                        {
+                            "id": "ae461ce3-ab5c-445a-864d-8545108e4c80",
+                            "action": {
+                                "category": {
+                                    "id": 20,
+                                    "name": "Sản phẩm nổi bật",
+                                    "visible": true,
+                                    "url": null,
+                                    "image": "",
+                                    "children": [],
+                                    "manufactureCategory": false,
+                                    "parentId": 0,
+                                    "selected": false
+                                },
+                                "type": "openCategory"
+                            },
+                            "columns": 2,
+                            "backgroundColor": "#FFFFFF",
+                            "viewMore": {
+                                "text": "Xem thêm"
+                            },
+                            "type": "productParallax",
+                            "category": {
+                                "id": 20,
+                                "name": "Sản phẩm nổi bật",
+                                "visible": true,
+                                "url": null,
+                                "image": "",
+                                "children": [],
+                                "manufactureCategory": false,
+                                "parentId": 0,
+                                "selected": false
+                            },
+                            "products": [
+                                {
+                                    "id": 202,
+                                    "name": "Adi forum 84 Dán",
+                                    "image": "https://bangshop.io.vn/wp-content/uploads/2023/12/CF65AF33-90E7-40E4-85FE-D992537A29A7.png",
+                                    "price": 520000
+                                },
+                                {
+                                    "id": 163,
+                                    "name": "Adi forum 84",
+                                    "image": "https://bangshop.io.vn/wp-content/uploads/2023/12/983B2CA5-C2F4-4082-BB0B-E15942E2CF89.png",
+                                    "price": 520000
+                                },
+                                {
+                                    "id": 136,
+                                    "name": "Puma fenty creeper",
+                                    "image": "https://bangshop.io.vn/wp-content/uploads/2023/12/ABA50B12-416F-472B-B353-3C5D958911FB.png",
+                                    "price": 520000
+                                },
+                                {
+                                    "id": 96,
+                                    "name": "AF1 Nâu",
+                                    "image": "https://bangshop.io.vn/wp-content/uploads/2023/12/IMG_0674-scaled.jpg",
+                                    "price": 630000
+                                }
+                            ],
+                            "title": {
+                                "text": "Sản phẩm nổi bật"
+                            }
+                        },
+                        {
+                            "id": "46c709dc-e83d-467c-9900-4b94e62aaf15",
+                            "action": {
+                                "type": "openCategory",
+                                "url": {
+                                    "url": "",
+                                    "openExternal": true
+                                }
+                            },
+                            "type": "banner",
+                            "backgroundColor": "#FFFFFF",
+                            "images": [
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/w7q8dt3f0hj6l0gk4jp1wnhp/convert1",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/w7q8dt3f0hj6l0gk4jp1wnhp/convert1/variants/thumbnail"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "fae4b40c-432d-4312-9c6f-dd4601fdf9a7",
+                            "action": {
+                                "category": {
+                                    "id": 21,
+                                    "name": "Kitchen",
+                                    "visible": true,
+                                    "url": null,
+                                    "image": "",
+                                    "children": [],
+                                    "manufactureCategory": false,
+                                    "parentId": 0,
+                                    "selected": false
+                                },
+                                "type": "openCategory"
+                            },
+                            "columns": 2,
+                            "backgroundColor": "#FFFFFF",
+                            "viewMore": {
+                                "text": "View all"
+                            },
+                            "type": "productCarousel",
+                            "category": {
+                                "id": 21,
+                                "name": "Kitchen",
+                                "visible": true,
+                                "url": null,
+                                "image": "",
+                                "children": [],
+                                "manufactureCategory": false,
+                                "parentId": 0,
+                                "selected": false
+                            },
+                            "products": [
+                                {
+                                    "id": 202,
+                                    "name": "Adi forum 84 Dán",
+                                    "image": "https://bangshop.io.vn/wp-content/uploads/2023/12/CF65AF33-90E7-40E4-85FE-D992537A29A7.png",
+                                    "price": 520000
+                                },
+                                {
+                                    "id": 163,
+                                    "name": "Adi forum 84",
+                                    "image": "https://bangshop.io.vn/wp-content/uploads/2023/12/983B2CA5-C2F4-4082-BB0B-E15942E2CF89.png",
+                                    "price": 520000
+                                },
+                                {
+                                    "id": 136,
+                                    "name": "Puma fenty creeper",
+                                    "image": "https://bangshop.io.vn/wp-content/uploads/2023/12/ABA50B12-416F-472B-B353-3C5D958911FB.png",
+                                    "price": 520000
+                                },
+                                {
+                                    "id": 96,
+                                    "name": "AF1 Nâu",
+                                    "image": "https://bangshop.io.vn/wp-content/uploads/2023/12/IMG_0674-scaled.jpg",
+                                    "price": 630000
+                                }
+                            ],
+                            "title": {
+                                "text": "Kitchen"
+                            }
+                        },
+                        {
+                            "id": "b38b4f01-1804-461f-8ce6-c222b32e9138",
+                            "action": {
+                                "type": "openCategory",
+                                "url": {
+                                    "url": "",
+                                    "openExternal": true
+                                }
+                            },
+                            "type": "banner",
+                            "backgroundColor": "#FFFFFF",
+                            "images": [
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/besc1e4hi3qmjy6bcxhstolg/adidas7",
+                                    "ratio": 1,
+                                    "width": 440,
+                                    "height": 440,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/besc1e4hi3qmjy6bcxhstolg/adidas7/variants/thumbnail"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "be6c7f27-0bf0-4350-bd66-b0795b0f1c0a",
+                            "action": {
+                                "type": "openCategory",
+                                "url": {
+                                    "url": "",
+                                    "openExternal": true
+                                }
+                            },
+                            "type": "grid",
+                            "backgroundColor": "#FFFFFF",
+                            "columns": 4,
+                            "images": [
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/gkjacr390m9n9rgsy88h7j62/adidas3",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/gkjacr390m9n9rgsy88h7j62/adidas3/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/rv6vt9to5ta3guk0gmdymi7t/adidas2",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/rv6vt9to5ta3guk0gmdymi7t/adidas2/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/w7sguz1poyciesj0qea2x4mq/adidas6",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/w7sguz1poyciesj0qea2x4mq/adidas6/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/rx1lmzuwl6kg4nmtv3of54db/adidias5",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/rx1lmzuwl6kg4nmtv3of54db/adidias5/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/besc1e4hi3qmjy6bcxhstolg/adidas7",
+                                    "ratio": 1,
+                                    "width": 440,
+                                    "height": 440,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/besc1e4hi3qmjy6bcxhstolg/adidas7/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/rv6vt9to5ta3guk0gmdymi7t/adidas2",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/rv6vt9to5ta3guk0gmdymi7t/adidas2/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/ziafn9p3ocmi1ozv0ang6edh/adidas1",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/ziafn9p3ocmi1ozv0ang6edh/adidas1/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                },
+                                {
+                                    "src": "https://alphonso-uppy.jmango360.dev/files/w7sguz1poyciesj0qea2x4mq/adidas6",
+                                    "ratio": 1,
+                                    "width": 564,
+                                    "height": 564,
+                                    "thumbnail": "https://alphonso-uppy.jmango360.dev/files/w7sguz1poyciesj0qea2x4mq/adidas6/variants/thumbnail",
+                                    "action": {
+                                        "type": "openCategory"
+                                    }
+                                }
+                            ],
+                            "spacing": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 0,
+                                "right": 0,
+                                "inner": 0
+                            }
+                        },
+                        {
+                            "id": "78ad54cb-7f21-4c82-a219-ad536c42d40b",
+                            "action": {
+                                "type": "openCategory",
+                                "url": {
+                                    "url": "",
+                                    "openExternal": true
+                                }
+                            },
+                            "type": "recentlyViewed",
+                            "backgroundColor": "#FFFFFF"
+                        },
+                        {
+                            "id": "9c47e7bc-7f90-48f6-aec3-e4577dfbaa93",
+                            "action": {
+                                "category": {
+                                    "id": 22,
+                                    "name": "Utility",
+                                    "visible": true,
+                                    "url": null,
+                                    "image": "",
+                                    "children": [],
+                                    "manufactureCategory": false,
+                                    "parentId": 0,
+                                    "selected": false
+                                },
+                                "type": "openCategory"
+                            },
+                            "columns": 2,
+                            "backgroundColor": "#FFFFFF",
+                            "viewMore": {
+                                "text": "View all"
+                            },
+                            "type": "productGrid",
+                            "category": {
+                                "id": 22,
+                                "name": "Utility",
+                                "visible": true,
+                                "url": null,
+                                "image": "",
+                                "children": [],
+                                "manufactureCategory": false,
+                                "parentId": 0,
+                                "selected": false
+                            },
+                            "products": [
+                                {
+                                    "id": 107,
+                                    "name": "[Sample] Dustpan & Brush",
+                                    "image": "https://cdn11.bigcommerce.com/s-d8qpvqpxz5/images/stencil/640w/products/107/351/dustpan1.1692951929.jpg",
+                                    "price": 31.77
+                                },
+                                {
+                                    "id": 104,
+                                    "name": "[Sample] Utility Caddy",
+                                    "image": "https://cdn11.bigcommerce.com/s-d8qpvqpxz5/images/stencil/640w/products/104/336/utilitybucket1.1692951929.jpg",
+                                    "price": 41.77
+                                },
+                                {
+                                    "id": 103,
+                                    "name": "[Sample] Canvas Laundry Cart",
+                                    "image": "https://cdn11.bigcommerce.com/s-d8qpvqpxz5/images/stencil/640w/products/103/334/naturalcanvascart2.1692951929.jpg",
+                                    "price": 226.36
+                                },
+                                {
+                                    "id": 98,
+                                    "name": "[Sample] Laundry Detergent",
+                                    "image": "https://cdn11.bigcommerce.com/s-d8qpvqpxz5/images/stencil/640w/products/98/327/CommonGoodLaundrySoap.1692951929.jpg",
+                                    "price": 27.23
+                                }
+                            ],
+                            "title": {
+                                "text": "Utility"
+                            }
+                        }
+                    ],
+                    "id": "65261984d81214248c1cab86"
+                }
+            ],
+            "title": {
+                "text": "Home",
+                "visible": true
+            },
+            "type": "home",
+            "options": null,
+            "id": "65261984d81214248c1cab70"
+        }
+    ]
+}

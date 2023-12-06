@@ -174,8 +174,13 @@ export const addLayout = async (req: Request, res: Response) => {
 
 export const getLayoutByAppKey = async (req: Request, res: Response) => {
   try {
-    const appKey = req.params.appKey;
+    const appKey = req.params.appKey.trim();
     const db = Database.db;
+    if (!db) {
+      res
+        .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+        .json({error: "Database connection error"});
+    }
     const collection = db?.collection("Layout");
 
     const setting = await collection?.findOne({appKey});
