@@ -6,6 +6,7 @@ import {
   createApp,
   getAppByAppKey,
   getLayoutByAppKey,
+  getLayoutById,
   getPagesByAppKey,
   getSettingByAppKey,
 } from "../services/appServices";
@@ -28,5 +29,7 @@ router.get("/:appKey/layout", getLayoutByAppKey);
 router.post("/page", addPage);
 
 router.get("/:appKey/pages", getPagesByAppKey);
+
+router.get("/:id/layout", getLayoutById);
 
 export default router;

@@ -6,6 +6,7 @@ import {Request, Response} from "express";
 import HttpStatusCodes from "../constants/HttpStatusCodes";
 import {SettingData} from "../models/Setting";
 import {PageLayoutData} from "../models/Page";
+import {ObjectId} from "mongodb";
 
 export const createApp = async (req: Request, res: Response) => {
   try {
@@ -189,6 +190,40 @@ export const getLayoutByAppKey = async (req: Request, res: Response) => {
       res.status(HttpStatusCodes.OK).json({
         message: "Get layout successfully",
         data: setting,
+      });
+    } else {
+      res.status(HttpStatusCodes.NOT_FOUND).json({error: "Layout not found"});
+    }
+  } catch (error) {
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .json({message: "An error occurred while processing the request"});
+  }
+};
+
+export const getLayoutById = async (req: Request, res: Response) => {
+  try {
+    const layoutId = req.params.id.trim(); // Assuming layoutId is the MongoDB ID
+    const db = Database.db;
+
+    if (!db) {
+      res
+        .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+        .json({error: "Database connection error"});
+      return;
+    }
+
+    const collection = db.collection("Layout");
+
+    // Convert layoutId to ObjectId
+    const objectId = new ObjectId(layoutId);
+
+    const layout = await collection.findOne({_id: objectId});
+
+    if (layout) {
+      res.status(HttpStatusCodes.OK).json({
+        message: "Get layout successfully",
+        data: layout,
       });
     } else {
       res.status(HttpStatusCodes.NOT_FOUND).json({error: "Layout not found"});
