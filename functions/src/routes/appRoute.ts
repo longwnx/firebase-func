@@ -30,6 +30,6 @@ router.post("/page", addPage);
 
 router.get("/:appKey/pages", getPagesByAppKey);
 
-router.get("/:id/layout", getLayoutById);
+router.get("/:id/g", getLayoutById);
 
 export default router;

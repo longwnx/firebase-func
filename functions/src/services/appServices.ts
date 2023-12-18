@@ -203,7 +203,7 @@ export const getLayoutByAppKey = async (req: Request, res: Response) => {
 
 export const getLayoutById = async (req: Request, res: Response) => {
   try {
-    const layoutId = req.params.id.trim(); // Assuming layoutId is the MongoDB ID
+    const layoutId = req.params.id; // Assuming layoutId is the MongoDB ID
     const db = Database.db;
 
     if (!db) {
