@@ -21,11 +21,11 @@ ENTRYPOINT ["/lambda-entrypoint.sh"]
 
 FROM public.ecr.aws/lambda/nodejs:18 as builder
 WORKDIR /Users/longnguyenxuan/Apps/Persional/firebase-func/functions
-COPY package.json src/index.ts  ./
+COPY package.json src/index.ts src/server.ts src ./
 RUN npm install
 RUN npm run build
 
 FROM public.ecr.aws/lambda/nodejs:18
 WORKDIR ${LAMBDA_TASK_ROOT}
-COPY --from=builder /usr/app/dist/* ./
+COPY --from=builder /Users/longnguyenxuan/Apps/Persional/firebase-func/functions/ ./
 CMD ["index.handler"]
