@@ -32,4 +32,9 @@ router.get("/:appKey/pages", getPagesByAppKey);
 
 router.get("/:id/layoutId", getLayoutById);
 
+router.get("/", (req, res) => {
+  // This will respond to "/app-mobile/v1/"
+  res.send("Welcome to app-mobile version 1");
+});
+
 export default router;

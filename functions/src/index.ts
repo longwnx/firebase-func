@@ -1,15 +1,15 @@
-// import {onRequest} from "firebase-functions/v2/https";
+import awsServerlessExpress from "aws-serverless-express";
+import {APIGatewayProxyHandler} from "aws-lambda";
 import {app} from "./server";
 import express from "express";
-import awsServerlessExpress from "aws-serverless-express";
-import {APIGatewayProxyEvent, Context} from "aws-lambda";
 
-const expressApp = express();
+const appExpress = express();
 
-expressApp.use("/", app);
+appExpress.use("/", app);
 
-const server = awsServerlessExpress.createServer(app);
-//
-exports.handler = async (event: APIGatewayProxyEvent, context: Context) => {
+const server = awsServerlessExpress.createServer(appExpress);
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const handler: APIGatewayProxyHandler = (event, context) => {
   return awsServerlessExpress.proxy(server, event, context);
 };

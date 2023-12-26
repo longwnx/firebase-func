@@ -18,13 +18,14 @@ if (result2.error) {
 
 // **** Variables **** //
 const app = express();
+// app.use(awsServerlessExpressMiddleware.eventContext());
 // **** Setup **** //
 const port = 3000;
 // Basic middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log("Server is running at routes");
 });
 // Sử dụng route mới
 app.use("/app-mobile/v1", appRoute);
