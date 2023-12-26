@@ -28,9 +28,13 @@ app.listen(port, () => {
 });
 // Sử dụng route mới
 app.use("/app-mobile/v1", appRoute);
+
 app.use("/catalog/v1", productRoutes);
+
 app.use("/review/v1", reviewRoutes);
+
 app.use("/woocommerce-user/v1", customerRoutes);
+
 app.use("/order/v1", orderRoutes);
 
 export {app};

@@ -6,4 +6,4 @@ const expressApp = express();
 
 expressApp.use("/", app);
 
-export const helloWorld = onRequest(expressApp);
+export const ecomServices = onRequest(expressApp);

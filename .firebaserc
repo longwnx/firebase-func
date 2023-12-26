@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "ecom-services"
-  }
+    "default": "ecom-services",
+    "production": "ecomservices-6fb1b",
+    "staging": "ecomservices-6fb1b"
+  },
+  "targets": {},
+  "etags": {}
 }
