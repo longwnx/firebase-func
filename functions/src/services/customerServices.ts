@@ -8,7 +8,7 @@ import HttpStatusCodes from "../constants/HttpStatusCodes";
 
 export async function registerCustomer(data: formRegister) {
   try {
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("User");
     if (collection) {
       const phone = data.info.find((item) => item.code === "phone-number");
@@ -83,7 +83,7 @@ export async function registerCustomer(data: formRegister) {
 export async function customerLogin(req: Request, res: Response) {
   try {
     const phone = req.body.phone as string;
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("User");
     if (collection) {
       const result = (await collection.findOne({phone})) as userData;
@@ -132,7 +132,7 @@ export async function customerLogin(req: Request, res: Response) {
 export async function handleGetCurrentUser(req: Request, res: Response) {
   try {
     const phone = req.query.phone as string;
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("User");
     if (collection) {
       const result = (await collection.findOne({phone})) as userData;

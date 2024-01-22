@@ -11,7 +11,7 @@ import {ObjectId} from "mongodb";
 export const createApp = async (req: Request, res: Response) => {
   try {
     const appData = req.body as AppData;
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("App");
     if (collection) {
       const appKey = uuidv4();
@@ -41,7 +41,7 @@ export const createApp = async (req: Request, res: Response) => {
 export const getAppByAppKey = async (req: Request, res: Response) => {
   try {
     const appKey = req.params.appKey;
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("App");
     const result = await collection?.findOne({appKey});
     if (result) {
@@ -61,7 +61,7 @@ export const getAppByAppKey = async (req: Request, res: Response) => {
 export const addSetting = async (req: Request, res: Response) => {
   try {
     const settingData = req.body as SettingData;
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("Setting");
     const existingSetting = await collection?.findOne({
       appKey: settingData.appKey,
@@ -106,7 +106,7 @@ export const addSetting = async (req: Request, res: Response) => {
 export const getSettingByAppKey = async (req: Request, res: Response) => {
   try {
     const appKey = req.params.appKey;
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("Setting");
 
     const setting = await collection?.findOne({appKey});
@@ -131,7 +131,7 @@ export const getSettingByAppKey = async (req: Request, res: Response) => {
 export const addLayout = async (req: Request, res: Response) => {
   try {
     const layoutData = req.body as LayoutData;
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("Layout");
     const existingLayout = await collection?.findOne({
       appKey: layoutData.appKey,
@@ -176,7 +176,7 @@ export const addLayout = async (req: Request, res: Response) => {
 export const getLayoutByAppKey = async (req: Request, res: Response) => {
   try {
     const appKey = req.params.appKey.trim();
-    const db = Database.db;
+    const db = Database.getDb();
     if (!db) {
       res
         .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
@@ -204,7 +204,7 @@ export const getLayoutByAppKey = async (req: Request, res: Response) => {
 export const getLayoutById = async (req: Request, res: Response) => {
   try {
     const layoutId = req.params.id; // Assuming layoutId is the MongoDB ID
-    const db = Database.db;
+    const db = Database.getDb();
 
     if (!db) {
       res
@@ -238,7 +238,7 @@ export const getLayoutById = async (req: Request, res: Response) => {
 export const addPage = async (req: Request, res: Response) => {
   const layoutData = req.body as PageLayoutData;
   try {
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("Page");
     const result = await collection?.insertOne(layoutData);
     if (result) {
@@ -259,7 +259,7 @@ export const addPage = async (req: Request, res: Response) => {
 export const getPagesByAppKey = async (req: Request, res: Response) => {
   try {
     const appKey = req.params.appKey;
-    const db = Database.db;
+    const db = Database.getDb();
     const collection = db?.collection("Page");
 
     const pages = await collection?.find({appKey}).toArray();

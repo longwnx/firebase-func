@@ -9,7 +9,7 @@ import {randomUUID} from "crypto";
 
 export const handleGetCartRequest = async (req: Request, res: Response) => {
   try {
-    const db = Database.db;
+    const db = Database.getDb();
     const collection: Collection = db?.collection("Cart") as Collection;
     const cartId = req.query.cartId as string;
     const customerId = req.query.customerId as string;
@@ -55,7 +55,7 @@ export const handleGetCartRequest = async (req: Request, res: Response) => {
 };
 export const handleAddItemCartRequest = async (req: Request, res: Response) => {
   try {
-    const db = Database.db;
+    const db = Database.getDb();
     const collection: Collection = db?.collection("Cart") as Collection;
     const {customerId, lineItems} = req.body;
     const JM360_DEVICE_KEY = req.headers.jm360_device_key;
@@ -157,7 +157,7 @@ export const handleAddItemCartRequest = async (req: Request, res: Response) => {
 
 export const handleUpdateCartRequest = async (req: Request, res: Response) => {
   try {
-    const db = Database.db;
+    const db = Database.getDb();
     const collection: Collection = db?.collection("Cart") as Collection;
     const {lineItems} = req.body;
     const {cartId} = req.params;
@@ -268,7 +268,7 @@ export const handleDeleteCartItemRequest = async (
   res: Response,
 ) => {
   try {
-    const db = Database.db;
+    const db = Database.getDb();
     const collection: Collection = db?.collection("Cart") as Collection;
     const {cartId, itemId} = req.params;
     const JM360_DEVICE_KEY = req.headers.jm360_device_key;
@@ -319,7 +319,7 @@ export const handleCustomerCartRequest = async (
   res: Response,
 ) => {
   try {
-    const db = Database.db;
+    const db = Database.getDb();
     const collection: Collection = db?.collection("Cart") as Collection;
     const {cartId, customerId} = req.body;
 
@@ -370,7 +370,7 @@ export const handleUpdateQuantityRequest = async (
   res: Response,
 ) => {
   try {
-    const db = Database.db;
+    const db = Database.getDb();
     const collection: Collection = db?.collection("Cart") as Collection;
     const {itemId, quantity} = req.body;
     const cartId = req.params.cartId as string;

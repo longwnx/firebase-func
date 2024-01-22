@@ -1,33 +1,27 @@
-import {Db, MongoClient} from "mongodb";
+import {MongoClient} from "mongodb";
 import dotenv from "dotenv";
 
-const result2 = dotenv.config();
-if (result2.error) {
-  throw result2.error;
-}
-const url = `${process.env.MONGODB_URL}`;
-const options = {}; // Add your options here
+dotenv.config();
+
+const url = String(process.env.MONGODB_URL);
+const options = {}; // Các tùy chọn (nếu có)
 
 /**
- * Database class to handle MongoDB connections.
+ * Lớp Database để xử lý kết nối với MongoDB.
  */
 class Database {
   private static instance: Database;
-  public db?: Db;
   private client: MongoClient;
 
-  /**
-   * Private constructor for the Database class.
-   */
+  // Constructor riêng tư
+  // eslint-disable-next-line require-jsdoc
   private constructor() {
     this.client = new MongoClient(url, options);
     this.connect();
   }
 
-  /**
-   * Get the instance of the Database class.
-   * @return {Database} The instance of the Database class.
-   */
+  // Lấy thực thể của lớp Database
+  // eslint-disable-next-line require-jsdoc
   public static getInstance(): Database {
     if (!Database.instance) {
       Database.instance = new Database();
@@ -35,19 +29,23 @@ class Database {
     return Database.instance;
   }
 
-  /**
-   * Connect to the MongoDB database.
-   */
+  // Lấy đối tượng Db
+  // eslint-disable-next-line require-jsdoc
+  public getDb() {
+    return this.client.db();
+  }
+
+  // Kết nối với cơ sở dữ liệu MongoDB
+  // eslint-disable-next-line require-jsdoc
   private async connect(): Promise<void> {
     try {
       await this.client.connect();
       console.log("Connected to MongoDB!");
-      this.db = this.client.db();
     } catch (error) {
       console.error(`Error connecting to MongoDB: ${error}`);
     }
   }
 }
 
-const databaseInstance = Database.getInstance();
-export default databaseInstance;
+// Xuất khẩu một thực thể của Database
+export default Database.getInstance();
